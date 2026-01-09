@@ -51,7 +51,7 @@ while true; do
 		exit 1
 	fi
 
-	git fetch origin "$START_BRANCH" >/dev/null
+	git fetch origin "$START_BRANCH" 2>/dev/null 2>&1
 		# some setups may need
 		# `git fetch origin "$START_BRANCH":"$START_BRANCH"`
 		# to update the local tracking branch properly.
