@@ -2,8 +2,8 @@
 // TODO: put fractal math in separate file.
 // TODO: '+', '-', 'r' for no-keyboard setups. Touch buttons or volume buttons?
 
-import { complex, complexAdd, complexSub } from "./utils/complex";
-import { iterations } from "./utils/fractalMath";
+import { complex, complexAdd, complexSub } from "./utils/complex.js";
+import { iterations } from "./utils/fractalMath.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");

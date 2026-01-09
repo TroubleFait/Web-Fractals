@@ -1,4 +1,4 @@
-import { complexAdd, complexMul, complexAbs } from "./complex";
+import { complexAdd, complexMul, complexAbs } from "./complex.js";
 
 export function f(z, c) {
   return complexAdd(complexMul(z, z), c);
