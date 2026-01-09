@@ -1,8 +1,22 @@
 #!/usr/bin/env bash
 
+LOG_DIR="$HOME/.web_fractals_logs"
+mkdir -p "$LOG_DIR"
+LOG_FILE="$LOG_DIR/auto_update.log"
+echo_log() {
+	local type="${1:-INFO}"
+	shift
+	echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$type] $*" | tee -a "$LOG_FILE"
+}
+
+if [[ "$1" == "--show_logfile"]]; then
+	echo "$LOG_FILE"
+	exit
+fi
+
 if [[ "$#" -eq 1 ]]; then
 	REPO_DIR="$1"
-	cd "$REPO_DIR" || { echo "Cannot cd into $REPO_DIR"; exit 1; }
+	cd "$REPO_DIR" || { echo_log "Cannot cd into $REPO_DIR"; exit 1; }
 else
 	REPO_DIR="$PWD"
 fi
@@ -10,13 +24,6 @@ fi
 SERVER_SCRIPT="$REPO_DIR/start_server.sh"
 INDEX_FILE="src/index.html"
 SERVER_PORT=8000
-
-LOG_FILE="$REPO_DIR/auto_update.log"
-echo_log() {
-	local type="${1:-INFO}"
-	shift
-	echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$type] $*" | tee -a "$LOG_FILE"
-}
 
 echo_log INFO "=== Starting auto_update ==="
 
