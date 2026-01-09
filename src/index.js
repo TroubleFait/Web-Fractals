@@ -78,7 +78,8 @@ function resizeCanvas() {
   canvas.style.width = window.innerWidth + "px";
   canvas.style.height = window.innerHeight + "px";
 
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  // ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
 
   WIDTH = window.innerWidth;
   HEIGHT = window.innerHeight;
@@ -247,9 +248,27 @@ let dragging = false,
 let pointers = new Map();
 let lastPan = null;
 
+// Your pointer code uses:
+// e.offsetX
+// e.offsetY
+// On mobile + CSS scaling, these can be wrong.
+// Safer:
+// const rect = canvas.getBoundingClientRect();
+// const x = e.clientX - rect.left;
+// const y = e.clientY - rect.top;
+// I’d strongly recommend switching now before zoom/pinch starts drifting.
+
+function get_pointer_coordinates(e) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top,
+  };
+}
+
 canvas.addEventListener("pointerdown", (e) => {
   canvas.setPointerCapture(e.pointerId);
-  pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
+  pointers.set(e.pointerId, get_pointer_coordinates(e));
 });
 
 canvas.addEventListener("pointerup", (e) => {
@@ -265,8 +284,9 @@ canvas.addEventListener("pointercancel", (e) => {
 canvas.addEventListener("pointermove", (e) => {
   if (!pointers.has(e.pointerId)) return;
 
+  const offset = get_pointer_coordinates(e);
   const prev = pointers.get(e.pointerId);
-  pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
+  pointers.set(e.pointerId, offset);
 
   // ONE finger → translate
   if (pointers.size === 1) {
@@ -274,10 +294,10 @@ canvas.addEventListener("pointermove", (e) => {
       lastPan = prev;
       return;
     }
-    const dx = e.offsetX - lastPan.x;
-    const dy = e.offsetY - lastPan.y;
+    const dx = offset.x - lastPan.x;
+    const dy = offset.y - lastPan.y;
     translate(dx, dy);
-    lastPan = { x: e.offsetX, y: e.offsetY };
+    lastPan = offset;
   }
 });
 
@@ -285,7 +305,8 @@ canvas.addEventListener(
   "wheel",
   (e) => {
     e.preventDefault();
-    zoom(e.offsetX, e.offsetY, Math.pow(1.01, e.deltaY));
+    const offset = get_pointer_coordinates(e);
+    zoom(offset.x, offset.y, Math.pow(1.01, e.deltaY));
   },
   { passive: false }
 );
@@ -294,7 +315,7 @@ let lastPinchDist = null;
 
 canvas.addEventListener("pointermove", (e) => {
   if (!pointers.has(e.pointerId)) return;
-  pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
+  pointers.set(e.pointerId, get_pointer_coordinates(e));
 
   if (pointers.size === 2) {
     const pts = [...pointers.values()];
