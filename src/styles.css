@@ -7,7 +7,7 @@ body {
   overflow: hidden;
 }
 
-canvas {
+glCanvas {
   display: block; /* removes scrollbars */
   width: 100vw;
   height: 100vh;
