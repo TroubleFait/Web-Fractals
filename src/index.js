@@ -72,24 +72,26 @@ const ctx = canvas.getContext("2d");
 function resizeCanvas() {
   const dpr = window.devicePixelRatio || 1;
 
-  canvas.width  = Math.floor(window.innerWidth * dpr);
+  canvas.width = Math.floor(window.innerWidth * dpr);
   canvas.height = Math.floor(window.innerHeight * dpr);
 
-  canvas.style.width  = window.innerWidth + "px";
+  canvas.style.width = window.innerWidth + "px";
   canvas.style.height = window.innerHeight + "px";
 
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-  WIDTH  = window.innerWidth;
+  WIDTH = window.innerWidth;
   HEIGHT = window.innerHeight;
 
   draw();
 }
 
+let min = complex(-2, -1.2),
+  max = complex(1, 1.2);
+
 let WIDTH, HEIGHT;
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
-
 
 canvas.style.touchAction = "none"; // VERY important
 
@@ -97,9 +99,6 @@ canvas.style.touchAction = "none"; // VERY important
 //   HEIGHT = 600;
 const ITER_UNIT = 100;
 let max_iter = ITER_UNIT;
-
-let min = complex(-2, -1.2),
-  max = complex(1, 1.2);
 
 function pixel_to_complex(px, py) {
   // const c_real = min.re + px * ((max.re - min.re) / WIDTH),
@@ -192,8 +191,6 @@ function draw(xmin = 0, xmax = WIDTH, ymin = 0, ymax = HEIGHT, isFull = false) {
 
 draw();
 
-
-
 function zoom(px, py, scale) {
   const c = pixel_to_complex(px, py);
   min.re = c.re + (min.re - c.re) / scale;
@@ -252,22 +249,22 @@ let dragging = false,
 let pointers = new Map();
 let lastPan = null;
 
-canvas.addEventListener("pointerdown", e => {
+canvas.addEventListener("pointerdown", (e) => {
   canvas.setPointerCapture(e.pointerId);
   pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
 });
 
-canvas.addEventListener("pointerup", e => {
+canvas.addEventListener("pointerup", (e) => {
   pointers.delete(e.pointerId);
   lastPan = null;
 });
 
-canvas.addEventListener("pointercancel", e => {
+canvas.addEventListener("pointercancel", (e) => {
   pointers.delete(e.pointerId);
   lastPan = null;
 });
 
-canvas.addEventListener("pointermove", e => {
+canvas.addEventListener("pointermove", (e) => {
   if (!pointers.has(e.pointerId)) return;
 
   const prev = pointers.get(e.pointerId);
@@ -286,14 +283,18 @@ canvas.addEventListener("pointermove", e => {
   }
 });
 
-canvas.addEventListener("wheel", e => {
-  e.preventDefault();
-  zoom(e.offsetX, e.offsetY, Math.pow(1.01, e.deltaY));
-}, { passive: false });
+canvas.addEventListener(
+  "wheel",
+  (e) => {
+    e.preventDefault();
+    zoom(e.offsetX, e.offsetY, Math.pow(1.01, e.deltaY));
+  },
+  { passive: false }
+);
 
 let lastPinchDist = null;
 
-canvas.addEventListener("pointermove", e => {
+canvas.addEventListener("pointermove", (e) => {
   if (!pointers.has(e.pointerId)) return;
   pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
 
@@ -318,7 +319,6 @@ canvas.addEventListener("pointermove", e => {
     lastPinchDist = null;
   }
 });
-
 
 // // Translation
 // let isRendering = false;
