@@ -57,13 +57,13 @@ function f(z, c) {
   return complexAdd(complexMul(z, z), c);
 }
 
-function iterations(c, max) {
+function iterations(c) {
   let z = complex(0, 0);
-  for (let n = 0; n < max; n++) {
+  for (let n = 0; n < max_iter; n++) {
     if (complexAbs(z) > 2) return n;
     z = f(z, c);
   }
-  return max;
+  return max_iter;
 }
 
 const canvas = document.getElementById("canvas");
@@ -86,6 +86,9 @@ function resizeCanvas() {
   draw();
 }
 
+const ITER_UNIT = 100;
+let max_iter = ITER_UNIT;
+
 let min = complex(-2, -1.2),
   max = complex(1, 1.2);
 
@@ -94,11 +97,6 @@ resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
 canvas.style.touchAction = "none"; // VERY important
-
-// const WIDTH = 800,
-//   HEIGHT = 600;
-const ITER_UNIT = 100;
-let max_iter = ITER_UNIT;
 
 function pixel_to_complex(px, py) {
   // const c_real = min.re + px * ((max.re - min.re) / WIDTH),
@@ -178,10 +176,7 @@ function draw(xmin = 0, xmax = WIDTH, ymin = 0, ymax = HEIGHT, isFull = false) {
 
     for (let py = ymin; py < ymax; py++) {
       const localY = py - ymin;
-      const color = choose_color(
-        iterations(pixel_to_complex(px, py)),
-        max_iter
-      );
+      const color = choose_color(iterations(pixel_to_complex(px, py)));
       const idx = (localY * width + localX) * 4;
       imgData.data[idx + 0] = color[0]; // R
       imgData.data[idx + 1] = color[1]; // G
