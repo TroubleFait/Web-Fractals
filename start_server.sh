@@ -24,10 +24,13 @@ echo "Serving on:"
 echo "	http://${HOST_LABEL}:${PORT}/"
 
 if [[ -n "$FILE" ]]; then
-	echo
-	echo "Open this file:"
-	echo "	http://${HOST_LABEL}:${PORT}/${FILE}"
+	DIR=$(dirname "$FILE")
+	# echo
+	# echo "Open this file:"
+	# echo "	http://${HOST_LABEL}:${PORT}/${FILE}"
+else
+	DIR="."
 fi
 
 echo
-python -m http.server "$PORT" --bind "$BIND"
+python -m http.server "$PORT" --bind "$BIND" --directory "$DIR"
