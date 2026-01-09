@@ -57,13 +57,13 @@ function f(z, c) {
   return complexAdd(complexMul(z, z), c);
 }
 
-function iterations(c) {
+function iterations(c, max) {
   let z = complex(0, 0);
-  for (let n = 0; n < max_iter; n++) {
+  for (let n = 0; n < max; n++) {
     if (complexAbs(z) > 2) return n;
     z = f(z, c);
   }
-  return max_iter;
+  return max;
 }
 
 const canvas = document.getElementById("canvas");
@@ -178,7 +178,10 @@ function draw(xmin = 0, xmax = WIDTH, ymin = 0, ymax = HEIGHT, isFull = false) {
 
     for (let py = ymin; py < ymax; py++) {
       const localY = py - ymin;
-      const color = choose_color(iterations(pixel_to_complex(px, py)));
+      const color = choose_color(
+        iterations(pixel_to_complex(px, py)),
+        max_iter
+      );
       const idx = (localY * width + localX) * 4;
       imgData.data[idx + 0] = color[0]; // R
       imgData.data[idx + 1] = color[1]; // G
