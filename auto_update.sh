@@ -9,7 +9,7 @@ echo_log() {
 	echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$type] $*" | tee -a "$LOG_FILE"
 }
 
-if [[ "$1" == "--show_logfile"]]; then
+if [[ "$1" == "--show_logfile" ]]; then
 	echo "$LOG_FILE"
 	exit
 fi
