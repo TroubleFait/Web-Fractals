@@ -1,3 +1,7 @@
+// TODO: put complex math in separate file.
+// TODO: put fractal math in separate file.
+// TODO: '+', '-', 'r' for no-keyboard setups. Touch buttons or volume buttons?
+
 function complex(re, im) {
   return { re, im };
 }
@@ -89,8 +93,8 @@ window.addEventListener("resize", resizeCanvas);
 
 canvas.style.touchAction = "none"; // VERY important
 
-const WIDTH = 800,
-  HEIGHT = 600;
+// const WIDTH = 800,
+//   HEIGHT = 600;
 const ITER_UNIT = 100;
 let max_iter = ITER_UNIT;
 
@@ -188,46 +192,8 @@ function draw(xmin = 0, xmax = WIDTH, ymin = 0, ymax = HEIGHT, isFull = false) {
 
 draw();
 
-// Translate (new)
-let pointers = new Map();
-let lastPan = null;
-
-canvas.addEventListener("pointerdown", e => {
-  canvas.setPointerCapture(e.pointerId);
-  pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
-});
-
-canvas.addEventListener("pointerup", e => {
-  pointers.delete(e.pointerId);
-  lastPan = null;
-});
-
-canvas.addEventListener("pointercancel", e => {
-  pointers.delete(e.pointerId);
-  lastPan = null;
-});
-
-canvas.addEventListener("pointermove", e => {
-  if (!pointers.has(e.pointerId)) return;
-
-  const prev = pointers.get(e.pointerId);
-  pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
-
-  // ONE finger → translate
-  if (pointers.size === 1) {
-    if (!lastPan) {
-      lastPan = prev;
-      return;
-    }
-    const dx = e.offsetX - lastPan.x;
-    const dy = e.offsetY - lastPan.y;
-    translate(dx, dy);
-    lastPan = { x: e.offsetX, y: e.offsetY };
-  }
-});
 
 
-// Zoom
 function zoom(px, py, scale) {
   const c = pixel_to_complex(px, py);
   min.re = c.re + (min.re - c.re) / scale;
@@ -237,49 +203,6 @@ function zoom(px, py, scale) {
   draw();
 }
 
-//canvas.onwheel = (e) => {
-//  e.preventDefault();
-//  const px = e.offsetX,
-//    py = e.offsetY,
-//    scale = Math.pow(1.01, e.deltaY);
-//  zoom(px, py, scale);
-//};
-
-canvas.addEventListener("wheel", e => {
-  e.preventDefault();
-  zoom(e.offsetX, e.offsetY, Math.pow(1.01, e.deltaY));
-}, { passive: false });
-
-let lastPinchDist = null;
-
-canvas.addEventListener("pointermove", e => {
-  if (!pointers.has(e.pointerId)) return;
-  pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
-
-  if (pointers.size === 2) {
-    const pts = [...pointers.values()];
-    const dx = pts[0].x - pts[1].x;
-    const dy = pts[0].y - pts[1].y;
-    const dist = Math.hypot(dx, dy);
-
-    if (lastPinchDist) {
-      const scale = dist / lastPinchDist;
-
-      // zoom around midpoint
-      const cx = (pts[0].x + pts[1].x) / 2;
-      const cy = (pts[0].y + pts[1].y) / 2;
-
-      zoom(cx, cy, scale);
-    }
-
-    lastPinchDist = dist;
-  } else {
-    lastPinchDist = null;
-  }
-});
-
-
-// Translation
 let isRendering = false;
 let pendingTranslate = { x: 0, y: 0 };
 
@@ -325,25 +248,143 @@ function translate(dx, dy) {
 let dragging = false,
   lastX,
   lastY;
-canvas.onmousedown = (e) => {
-  dragging = true;
-  lastX = e.offsetX;
-  lastY = e.offsetY;
-};
-canvas.onmouseleave = () => {
-  dragging = false;
-};
-canvas.onmousemove = (e) => {
-  if (!dragging) return;
-  const d_x = e.offsetX - lastX,
-    d_y = e.offsetY - lastY;
-  translate(d_x, d_y);
-  lastX = e.offsetX;
-  lastY = e.offsetY;
-};
-canvas.onmouseup = () => {
-  dragging = false;
-};
+
+let pointers = new Map();
+let lastPan = null;
+
+canvas.addEventListener("pointerdown", e => {
+  canvas.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
+});
+
+canvas.addEventListener("pointerup", e => {
+  pointers.delete(e.pointerId);
+  lastPan = null;
+});
+
+canvas.addEventListener("pointercancel", e => {
+  pointers.delete(e.pointerId);
+  lastPan = null;
+});
+
+canvas.addEventListener("pointermove", e => {
+  if (!pointers.has(e.pointerId)) return;
+
+  const prev = pointers.get(e.pointerId);
+  pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
+
+  // ONE finger → translate
+  if (pointers.size === 1) {
+    if (!lastPan) {
+      lastPan = prev;
+      return;
+    }
+    const dx = e.offsetX - lastPan.x;
+    const dy = e.offsetY - lastPan.y;
+    translate(dx, dy);
+    lastPan = { x: e.offsetX, y: e.offsetY };
+  }
+});
+
+canvas.addEventListener("wheel", e => {
+  e.preventDefault();
+  zoom(e.offsetX, e.offsetY, Math.pow(1.01, e.deltaY));
+}, { passive: false });
+
+let lastPinchDist = null;
+
+canvas.addEventListener("pointermove", e => {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.set(e.pointerId, { x: e.offsetX, y: e.offsetY });
+
+  if (pointers.size === 2) {
+    const pts = [...pointers.values()];
+    const dx = pts[0].x - pts[1].x;
+    const dy = pts[0].y - pts[1].y;
+    const dist = Math.hypot(dx, dy);
+
+    if (lastPinchDist) {
+      const scale = dist / lastPinchDist;
+
+      // zoom around midpoint
+      const cx = (pts[0].x + pts[1].x) / 2;
+      const cy = (pts[0].y + pts[1].y) / 2;
+
+      zoom(cx, cy, scale);
+    }
+
+    lastPinchDist = dist;
+  } else {
+    lastPinchDist = null;
+  }
+});
+
+
+// // Translation
+// let isRendering = false;
+// let pendingTranslate = { x: 0, y: 0 };
+
+// function translate(dx, dy) {
+//   const d_real = (dx * (max.re - min.re)) / WIDTH,
+//     d_imag = (dy * (max.im - min.im)) / HEIGHT;
+//   min.re -= d_real;
+//   max.re -= d_real;
+//   min.im -= d_imag;
+//   max.im -= d_imag;
+
+//   pendingTranslate.x = dx;
+//   pendingTranslate.y = dy;
+
+//   if (isRendering && max_iter > 500) {
+//     ctx.drawImage(canvas, -dx, -dy);
+//     return;
+//   }
+
+//   isRendering = true;
+//   requestAnimationFrame(() => {
+//     const dx = pendingTranslate.x,
+//       dy = pendingTranslate.y;
+
+//     ctx.drawImage(canvas, dx, dy);
+
+//     // I'll have to actually think about this.
+//     if (max_iter < 500) {
+//       const xmin = dx > 0 ? 0 : Math.max(0, WIDTH + dx),
+//         xmax = dx > 0 ? Math.min(WIDTH, dx) : WIDTH,
+//         ymin = dy > 0 ? 0 : Math.max(0, HEIGHT + dy),
+//         ymax = dy > 0 ? Math.min(HEIGHT, dy) : HEIGHT;
+
+//       if (xmax > xmin && ymax > ymin) {
+//         draw(xmin, xmax, ymin, ymax);
+//       }
+//     }
+
+//     isRendering = false;
+//   });
+// }
+
+// let dragging = false,
+//   lastX,
+//   lastY;
+// canvas.onmousedown = (e) => {
+//   dragging = true;
+//   lastX = e.offsetX;
+//   lastY = e.offsetY;
+// };
+// canvas.onmouseleave = () => {
+//   dragging = false;
+// };
+// canvas.onmousemove = (e) => {
+//   if (!dragging) return;
+//   const d_x = e.offsetX - lastX,
+//     d_y = e.offsetY - lastY;
+//   translate(d_x, d_y);
+//   lastX = e.offsetX;
+//   lastY = e.offsetY;
+// };
+// canvas.onmouseup = () => {
+//   dragging = false;
+// };
 
 addEventListener("keydown", (e) => {
   switch (e.key) {
