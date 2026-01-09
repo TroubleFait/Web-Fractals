@@ -2,7 +2,7 @@
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 	echo "Usage:"
-	echo "[--lan] [file]"
+	echo "$0 [--lan] [file]"
 	exit 0
 fi
 
