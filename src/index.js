@@ -84,14 +84,39 @@ function resizeCanvas() {
   WIDTH = canvas.width;
   HEIGHT = canvas.height;
 
+  resetView();
   draw();
+}
+
+function resetView() {
+  const viewWidth = BASE_MAX.re - BASE_MIN.re,
+    viewHeight = BASE_MAX.im - BASE_MIN.im;
+
+  const viewAspect = viewWidth / viewHeight;
+  const canvasAspect = WIDTH / HEIGHT;
+
+  if (viewAspect < canvasAspect) {
+    const newWidth = viewHeight * canvasAspect;
+    const centerRe = (BASE_MAX.re + BASE_MIN.re) / 2;
+
+    min = complex(centerRe - newWidth / 2, BASE_MIN.im);
+    max = complex(centerRe + newWidth / 2, BASE_MAX.im);
+  } else {
+    const newHeight = viewWidth / canvasAspect;
+    const centerIm = (BASE_MAX.im + BASE_MIN.re) / 2;
+
+    min = complex(BASE_MIN.re, centerIm - newHeight / 2);
+    max = complex(BASE_MAX.re, centerIm + newHeight / 2);
+  }
 }
 
 const ITER_UNIT = 100;
 let max_iter = ITER_UNIT;
 
-let min = complex(-2, -1.2),
-  max = complex(1, 1.2);
+const BASE_MIN = complex(-2, -1.2),
+  BASE_MAX = complex(1, 1.2);
+
+let min, max;
 
 let WIDTH, HEIGHT;
 resizeCanvas();
