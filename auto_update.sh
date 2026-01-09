@@ -3,6 +3,7 @@
 LOG_DIR="$HOME/.web_fractals_logs"
 mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/auto_update.log"
+
 echo_log() {
 	local type="${1:-INFO}"
 	shift
@@ -43,14 +44,29 @@ trap '[[ -n "$SERVER_PID" ]] && kill $SERVER_PID 2>/dev/null' EXIT
 START_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo_log INFO "Monitoring branch '$START_BRANCH' at commit $(git rev-parse HEAD)"
 
+if [[ -t 1 ]]; then
+	USE_STATUS=true
+else
+	USE_STATUS=false
+fi
+status () {
+	$USE_STATUS || return
+	printf "\r[%s] Watching '%s'" "$(date '+%H:%M:%S')" "$START_BRANCH"
+}
+status_clear() {
+	printf "\r\033[K"
+}
+
 while true; do
 	CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 	if [[ "$CURRENT_BRANCH" != "$START_BRANCH" ]]; then
+		status_clear
 		echo_log WARN "Branch changed from $START_BRANCH to $CURRENT_BRANCH. Exiting for safety."
 		kill "$SERVER_PID" 2>/dev/null
 		exit 1
 	fi
 
+	status
 	git fetch origin "$START_BRANCH" >/dev/null 2>&1
 		# some setups may need
 		# `git fetch origin "$START_BRANCH":"$START_BRANCH"`
@@ -60,6 +76,7 @@ while true; do
 	REMOTE=$(git rev-parse "origin/$START_BRANCH")
 
 	if [[ "$LOCAL" != "$REMOTE" ]]; then
+		status_clear
 		echo_log INFO "New changes detected. Pulling latest commits..."
 		git reset --hard "origin/$START_BRANCH" >> "$LOG_FILE" 2>&1
 
