@@ -72,17 +72,17 @@ const ctx = canvas.getContext("2d");
 function resizeCanvas() {
   const dpr = window.devicePixelRatio || 1;
 
-  canvas.width = Math.floor(window.innerWidth * dpr);
-  canvas.height = Math.floor(window.innerHeight * dpr);
+  const cssWidth = window.innerWidth,
+    cssHeight = window.innerHeight;
 
-  canvas.style.width = window.innerWidth + "px";
-  canvas.style.height = window.innerHeight + "px";
+  canvas.width = Math.floor(cssWidth * dpr);
+  canvas.height = Math.floor(cssHeight * dpr);
 
-  // // ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  // ctx.setTransform(1, 0, 0, 1, 0, 0);
+  canvas.style.width = cssWidth + "px";
+  canvas.style.height = cssHeight + "px";
 
-  WIDTH = window.innerWidth;
-  HEIGHT = window.innerHeight;
+  WIDTH = canvas.width;
+  HEIGHT = canvas.height;
 
   draw();
 }
@@ -260,9 +260,10 @@ let lastPan = null;
 
 function get_pointer_coordinates(e) {
   const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
   return {
-    x: e.clientX - rect.left,
-    y: e.clientY - rect.top,
+    x: (e.clientX - rect.left) * dpr,
+    y: (e.clientY - rect.top) * dpr,
   };
 }
 
