@@ -1,0 +1,39 @@
+~/Documents/web_fractals $ bash auto_update.sh $PWD
+Monitoring branch 'WebGL' at commit 6254e67fdd27d6390afc8ab8b50a7d3bb332fe8e
+
+Serving on:
+        http://192.168.1.29:8000/
+
+Open this file:
+        http://192.168.1.29:8000/src/index.html
+
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+192.168.1.95 - - [09/Jan/2026 22:45:19] "GET / HTTP/1.1" 200 -
+^C
+~/Documents/web_fractals $ bash auto_update.sh $PWD
+Monitoring branch 'WebGL' at commit 6254e67fdd27d6390afc8ab8b50a7d3bb332fe8e
+
+Serving on:
+        http://192.168.1.29:8000/
+
+Open this file:
+        http://192.168.1.29:8000/src/index.html
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
