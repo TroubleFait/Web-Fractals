@@ -2,69 +2,8 @@
 // TODO: put fractal math in separate file.
 // TODO: '+', '-', 'r' for no-keyboard setups. Touch buttons or volume buttons?
 
-function complex(re, im) {
-  return { re, im };
-}
-
-function complexAdd(a, b) {
-  return {
-    re: a.re + b.re,
-    im: a.im + b.im,
-  };
-}
-
-function complexSub(a, b) {
-  return {
-    re: a.re - b.re,
-    im: a.im - b.im,
-  };
-}
-
-function complexMul(a, b) {
-  return {
-    re: a.re * b.re - a.im * b.im,
-    im: a.re * b.im + a.im * b.re,
-  };
-}
-
-function complexDiv(a, b) {
-  const denom = b.re ** 2 + b.im ** 2;
-  return {
-    re: (a.re * b.re + a.im * b.im) / denom,
-    im: (a.im * b.re - a.re * b.im) / denom,
-  };
-}
-
-function complexScalMul(z, x) {
-  return {
-    re: z.re * x,
-    im: z.im * x,
-  };
-}
-
-function complexScalDiv(z, x) {
-  return {
-    re: z.re / x,
-    im: z.im / x,
-  };
-}
-
-function complexAbs(z) {
-  return Math.sqrt(z.re * z.re + z.im * z.im);
-}
-
-function f(z, c) {
-  return complexAdd(complexMul(z, z), c);
-}
-
-function iterations(c) {
-  let z = complex(0, 0);
-  for (let n = 0; n < max_iter; n++) {
-    if (complexAbs(z) > 2) return n;
-    z = f(z, c);
-  }
-  return max_iter;
-}
+import { complex, complexAdd, complexSub } from "./utils/complex";
+import { iterations } from "./utils/fractalMath";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -202,7 +141,9 @@ function draw(xmin = 0, xmax = WIDTH, ymin = 0, ymax = HEIGHT, isFull = false) {
 
     for (let py = ymin; py < ymax; py++) {
       const localY = py - ymin;
-      const color = choose_color(iterations(pixel_to_complex(px, py)));
+      const color = choose_color(
+        iterations(pixel_to_complex(px, py), max_iter)
+      );
       const idx = (localY * width + localX) * 4;
       imgData.data[idx + 0] = color[0]; // R
       imgData.data[idx + 1] = color[1]; // G
