@@ -36,7 +36,6 @@ start_server() {
 	bash "$SERVER_SCRIPT" --lan "$file" 2>&1 | tee -a "$LOG_FILE" &
 	SERVER_PID=$!
 	echo_log INFO "Server started (PID=$SERVER_PID)"
-	echo_log INFO "Open your browser at: http://$(hostname -I | awk '{print $1}'):$SERVER_PORT/"
 }
 
 cleanup() {
