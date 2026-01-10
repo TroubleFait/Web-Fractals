@@ -47,6 +47,7 @@ async function main() {
     imMax: 1.2,
   };
   const uViewport = getViewport(INITIAL_BOUNDS, canvas);
+  console.log(uViewport);
 
   const uCenterLoc = gl.getUniformLocation(program, "u_center");
   const uScaleLoc = gl.getUniformLocation(program, "u_scale");
