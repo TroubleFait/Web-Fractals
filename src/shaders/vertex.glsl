@@ -1,5 +1,5 @@
 // Vertex shader
-// attribute vec2 a_position;
+attribute vec2 a_position;
 // varying vec2 v_uv;
 varying vec2 v_c; // the actual complex coordinate
 uniform float xmin, xmax, ymin, ymax; // the viewport in the complex plane
