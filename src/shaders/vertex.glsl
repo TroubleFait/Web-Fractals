@@ -4,6 +4,8 @@
 varying vec2 v_c; // the actual complex coordinate
 uniform float xmin, xmax, ymin, ymax; // the viewport in the complex plane
 
+// vec2 map(vec2 viewPt) {}
+
 void main() {
     // // Pass normalized coordinates to fragment shader
     // v_uv = a_position * 0.5 + 0.5; // map from [-1,1] to [0,1]

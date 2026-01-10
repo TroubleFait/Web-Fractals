@@ -54,8 +54,17 @@ async function main() {
     fragmentShaderSource
   );
   const program = createProgram(gl, vertexShader, fragmentShader);
-
   gl.useProgram(program);
+
+  const xminLoc = gl.getUniformLocation(program, "xmin");
+  const xmaxLoc = gl.getUniformLocation(program, "xmax");
+  const yminLoc = gl.getUniformLocation(program, "ymin");
+  const ymaxLoc = gl.getUniformLocation(program, "ymax");
+
+  gl.uniform1f(xminLoc, -2.0);
+  gl.uniform1f(xmaxLoc, 1.0);
+  gl.uniform1f(yminLoc, -1.2);
+  gl.uniform1f(ymaxLoc, 1.2);
 
   const aPosition = gl.getAttribLocation(program, "a_position");
   gl.enableVertexAttribArray(aPosition);
