@@ -24,23 +24,7 @@ async function main() {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   const positions = new Float32Array([
-    -1,
-    -1, //  bottom-left
-
-    1,
-    -1, //  bottom-right
-
-    -1,
-    1, //   top-left
-
-    -1,
-    1, //   top-left
-
-    1,
-    -1, //  bottom-right
-
-    1,
-    1, //   top-right
+    -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1,
   ]);
 
   const positionBuffer = gl.createBuffer();
@@ -56,15 +40,21 @@ async function main() {
   const program = createProgram(gl, vertexShader, fragmentShader);
   gl.useProgram(program);
 
-  const xminLoc = gl.getUniformLocation(program, "xmin");
-  const xmaxLoc = gl.getUniformLocation(program, "xmax");
-  const yminLoc = gl.getUniformLocation(program, "ymin");
-  const ymaxLoc = gl.getUniformLocation(program, "ymax");
+  const INITIAL_BOUNDS = {
+    reMin: -2.0,
+    reMax: 1.0,
+    imMin: -1.2,
+    imMax: 1.2,
+  };
+  const uViewport = getViewport(INITIAL_BOUNDS, canvas);
 
-  gl.uniform1f(xminLoc, -2.0);
-  gl.uniform1f(xmaxLoc, 1.0);
-  gl.uniform1f(yminLoc, -1.2);
-  gl.uniform1f(ymaxLoc, 1.2);
+  const uCenterLoc = gl.getUniformLocation(program, "u_center");
+  const uScaleLoc = gl.getUniformLocation(program, "u_scale");
+  const uAspect = gl.getUniformLocation(program, "u_aspect");
+
+  gl.uniform2f(uCenterLoc, uViewport.center.re, uViewport.center.im);
+  gl.uniform1f(uScaleLoc, uViewport.scale);
+  gl.uniform1f(uAspect, uViewport.aspect);
 
   const aPosition = gl.getAttribLocation(program, "a_position");
   gl.enableVertexAttribArray(aPosition);
@@ -106,4 +96,25 @@ function createProgram(gl, vertexShader, fragmentShader) {
   }
 
   return program;
+}
+
+function getViewport(INITIAL_BOUNDS, canvas) {
+  let boundsWidth = INITIAL_BOUNDS.reMax - INITIAL_BOUNDS.reMin;
+  const boundsHeight = INITIAL_BOUNDS.imMax - INITIAL_BOUNDS.imMin;
+
+  const boundsAspect = boundsWidth / boundsHeight,
+    canvasAspect = canvas.width / canvas.height;
+
+  if (boundsAspect < canvasAspect) {
+    boundsWidth = boundsHeight * canvasAspect;
+  }
+
+  const center = {
+    re: (INITIAL_BOUNDS.reMax + INITIAL_BOUNDS.reMin) / 2,
+    im: (INITIAL_BOUNDS.imMax + INITIAL_BOUNDS.imMin) / 2,
+  };
+  const scale = boundsWidth;
+  const aspect = canvasAspect;
+
+  return { center, scale, aspect };
 }
