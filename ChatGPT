@@ -1,7 +1,205 @@
-Absolutely — great idea to do this *cleanly* 👍
-Here’s a **concise but precise handoff brief** you can copy-paste into a new chat tomorrow.
+## 🧭 Where we are in the WebGL plan
+
+### The **big goal**
+
+Render your fractal **on the GPU** (WebGL), instead of:
+
+- JS loops
+- CPU-bound pixel iteration
+- `ImageData` writes
 
 ---
+
+## 🗺️ The roadmap we agreed on (reconstructed)
+
+We broke this into **clear steps** so you can _learn_, not cargo-cult.
+
+### ✅ Step 0 — WebGL context & full-screen canvas
+
+✔ **Done**
+
+You have:
+
+- A WebGL context
+- A full-viewport canvas
+- Proper DPR handling
+- A clear color (red for debugging)
+
+---
+
+### ✅ Step 1 — Draw _something_ with shaders
+
+✔ **Done**
+
+You now have:
+
+- Vertex shader
+- Fragment shader
+- Fullscreen quad
+- Gradient output via `v_uv`
+
+That proves:
+
+> ✔ shaders compile
+> ✔ attributes work
+> ✔ pipeline is alive
+
+This is the **hardest mental hurdle**, and you cleared it.
+
+---
+
+### 🔜 Step 2 — Move the math into the fragment shader
+
+👉 **This is exactly where we stopped**
+
+This step means:
+
+> For each pixel, the **fragment shader** computes the fractal value.
+
+No textures yet.
+No fancy GPU tricks yet.
+Just math.
+
+---
+
+## 🔍 What Step 2 _actually_ is (conceptually)
+
+Right now, your fragment shader does:
+
+```glsl
+gl_FragColor = vec4(v_uv.x, v_uv.y, 0.0, 1.0);
+```
+
+We want to replace that with:
+
+> “Given this pixel → map to a complex number → iterate → color”
+
+So conceptually:
+
+```
+pixel
+ ↓
+complex plane
+ ↓
+iterate z = z² + c
+ ↓
+escape count
+ ↓
+color
+```
+
+All **inside the fragment shader**.
+
+---
+
+## 🧠 What needs to change (high level, no code)
+
+### 1️⃣ JS stops iterating pixels
+
+JavaScript’s job becomes:
+
+- Set uniforms:
+
+  - viewport size
+  - complex-plane bounds
+  - max iterations
+
+- Draw **one rectangle**
+
+JS becomes the _conductor_, not the calculator.
+
+---
+
+### 2️⃣ Fragment shader becomes the engine
+
+The fragment shader will:
+
+- Receive:
+
+  - `v_uv` (0 → 1)
+  - uniforms like `u_min`, `u_max`
+
+- Convert `v_uv` → complex number
+- Run a loop (`for`)
+- Decide a color
+- Output `gl_FragColor`
+
+This is where your existing fractal math **moves to**.
+
+---
+
+### 3️⃣ Precision becomes a real topic (you were right)
+
+WebGL 1 has limits:
+
+- `highp float` is _sometimes_ 32-bit
+- Mobile GPUs vary
+
+We’ll:
+
+- start with `highp`
+- structure code so later:
+
+  - WebGL2
+  - double emulation
+  - perturbation techniques
+  - orbit traps
+    are possible
+
+You’re already thinking ahead correctly.
+
+---
+
+## 🔜 What is the _next concrete action_?
+
+**Next step = uniforms**
+
+Before fractals, we need to answer:
+
+> How do we send values from JS → shader?
+
+Specifically:
+
+- `u_min` (vec2)
+- `u_max` (vec2)
+- `u_maxIter`
+- maybe `u_aspect`
+
+This is the bridge between:
+
+- your existing complex math
+- the GPU
+
+---
+
+## 🎯 So the exact next step is:
+
+### **Step 2a**
+
+> Add uniforms to the fragment shader and set them from JS.
+
+No fractal yet.
+Just:
+
+- pass numbers in
+- verify the shader _sees_ them
+
+Once that works, the fractal is straightforward.
+
+---
+
+## Want to proceed?
+
+If you want, next I can:
+
+- explain **uniforms** conceptually
+- explain **why v_uv is still useful**
+- explain **GPU loops & limits**
+- or walk through a **mental translation** of your JS fractal math → GLSL
+
+Just tell me which angle you want first.
+
+===
 
 ## 🧠 Project Brief – WebGL Fractal Renderer (Handoff)
 
@@ -9,38 +207,38 @@ I’m building a **fractal explorer** (Mandelbrot-style) in the browser.
 
 ### Background
 
-* I started with a **CPU-based canvas fractal** (JS loops, ImageData).
-* I am now **migrating to WebGL** to leverage the GPU.
-* Goal: compute the fractal **entirely in the fragment shader**.
+- I started with a **CPU-based canvas fractal** (JS loops, ImageData).
+- I am now **migrating to WebGL** to leverage the GPU.
+- Goal: compute the fractal **entirely in the fragment shader**.
 
 ### Current Status
 
 ✅ WebGL setup is working:
 
-* Fullscreen canvas
-* Proper devicePixelRatio handling
-* WebGL context created
-* Viewport set correctly
+- Fullscreen canvas
+- Proper devicePixelRatio handling
+- WebGL context created
+- Viewport set correctly
 
 ✅ Shader pipeline is working:
 
-* Vertex shader draws a fullscreen quad using clip-space coordinates
-* Fragment shader receives `v_uv`
-* Fragment shader currently outputs a **UV gradient**, proving shaders compile, link, and render correctly
+- Vertex shader draws a fullscreen quad using clip-space coordinates
+- Fragment shader receives `v_uv`
+- Fragment shader currently outputs a **UV gradient**, proving shaders compile, link, and render correctly
 
 ### Files I Have
 
-* `index.js`: sets up WebGL, buffers, shaders, draws quad
-* `vertex.glsl`: passes `a_position` → `v_uv`
-* `fragment.glsl`: currently outputs `vec4(v_uv.x, v_uv.y, 0.0, 1.0)`
+- `index.js`: sets up WebGL, buffers, shaders, draws quad
+- `vertex.glsl`: passes `a_position` → `v_uv`
+- `fragment.glsl`: currently outputs `vec4(v_uv.x, v_uv.y, 0.0, 1.0)`
 
 ### What I Understand
 
-* `a_position`: vertex attribute in clip space
-* `varying v_uv`: interpolated per-fragment coordinates
-* WebGL 1 precision limits (`mediump`, `highp`)
-* Fragment shader runs once per pixel
-* JavaScript should stop iterating pixels and only pass parameters
+- `a_position`: vertex attribute in clip space
+- `varying v_uv`: interpolated per-fragment coordinates
+- WebGL 1 precision limits (`mediump`, `highp`)
+- Fragment shader runs once per pixel
+- JavaScript should stop iterating pixels and only pass parameters
 
 ### Where We Stopped (Important)
 
@@ -51,9 +249,10 @@ I’m building a **fractal explorer** (Mandelbrot-style) in the browser.
 
 1. Introducing **uniforms**:
 
-   * complex plane bounds (`u_min`, `u_max`)
-   * max iterations
-   * aspect ratio if needed
+   - complex plane bounds (`u_min`, `u_max`)
+   - max iterations
+   - aspect ratio if needed
+
 2. Passing those uniforms from JS → shader
 3. Mapping `v_uv` → complex coordinates
 4. Implementing Mandelbrot iteration inside the fragment shader
@@ -62,117 +261,121 @@ I’m building a **fractal explorer** (Mandelbrot-style) in the browser.
 
 Please:
 
-* Do **not** dump full code immediately
-* Explain concepts first
-* Help translate existing JS fractal math into GLSL step by step
-* Treat this as a learning process, not a copy-paste solution
+- Do **not** dump full code immediately
+- Explain concepts first
+- Help translate existing JS fractal math into GLSL step by step
+- Treat this as a learning process, not a copy-paste solution
 
 ---
 
-Sleep well 🌙
-Tomorrow you’ll be right back *exactly* where you left off, with no lost context.
+## ================
 
-=======================
+### **Project Brief: WebGL Educational Fractal App**
 
-In the end i want this to be a tool for education.
-I want students to be able to play with the math and have different fractals appear on the screen.
-
-So I suppose they should be able to write shader code directly and my app should load it and compute with it.
-
-=======================
-
-Ah — that makes perfect sense! That opens the door to a **fully interactive shader playground** for fractals. Let’s break down what this implies conceptually and technically.
+**Goal:**
+Create an interactive, educational WebGL app where students can explore fractals (starting with the Mandelbrot set). The app should allow live shader code editing and automatically update the screen with new fractal computations.
 
 ---
 
-## 1. Core Idea
+### **Current Setup**
 
-* Students should be able to **edit GLSL code live** (fragment shader, possibly vertex shader too).
-* The app should **compile and reload shaders on the fly**, so changes appear immediately.
-* They can experiment with fractal formulas, coloring schemes, zooms, etc.
+1. **HTML / Canvas**
 
-Effectively, it’s a **mini Shadertoy** tailored for fractals.
+   - A single canvas in `src/index.html`.
+   - Canvas size matches viewport: uses `canvas.width = window.innerWidth * window.devicePixelRatio`.
+
+2. **JavaScript (`index.js`)**
+
+   - Sets up WebGL context.
+   - Creates a full-screen quad covering `[-1, 1] × [-1, 1]`.
+   - Vertex and fragment shaders are loaded externally (ideally via `fetch` or similar).
+   - Buffers are initialized, but rendering currently just clears the screen red.
+   - Uniforms for the complex plane viewport (`xmin`, `xmax`, `ymin`, `ymax`) exist in the shader but are **not yet set in JS**, so the fractal doesn’t display properly.
+
+3. **Shaders**
+
+   - **Vertex Shader**
+
+     - Passes vertex positions to the fragment shader.
+     - Computes normalized coordinates `v_uv` from `[-1,1]` to `[0,1]`.
+     - Can optionally map directly to complex plane coordinates `v_c` using uniforms.
+
+   - **Fragment Shader**
+
+     - Computes iterations of `z = z² + c` for the Mandelbrot set.
+     - Uses functions for complex multiplication and `|z|²`.
+     - Outputs grayscale color based on the number of iterations.
+
+   - Current problem: fragment shader is showing solid red because uniform mapping to the complex plane hasn’t been initialized.
+
+4. **Fractal Logic**
+
+   - Complex multiplication implemented manually as `vec2`.
+   - Escape-time algorithm computes iterations until `|z|² > 4`.
+   - Max iterations constant (e.g., `100`) and brightness scaled to `[0,1]`.
+
+5. **Features for Students**
+
+   - Later: allow students to edit the fragment shader code and see updated fractals immediately.
+   - Plan to support multiple fractal formulas.
 
 ---
 
-## 2. Technical Requirements
+### **Immediate Next Steps**
 
-1. **Editable Shader Source**
+1. **Map the Quad to the Complex Plane**
 
-   * Could be a `<textarea>` or embedded code editor like **CodeMirror**, **Monaco**, or **Ace**.
-   * Keep the **vertex shader mostly fixed** for simplicity; let students focus on fragment shaders.
+   - In `index.js`, after creating the shader program:
 
-2. **Live Compilation**
+     ```js
+     const xminLoc = gl.getUniformLocation(program, "xmin");
+     const xmaxLoc = gl.getUniformLocation(program, "xmax");
+     const yminLoc = gl.getUniformLocation(program, "ymin");
+     const ymaxLoc = gl.getUniformLocation(program, "ymax");
 
-   * Use `gl.createShader`, `gl.shaderSource`, `gl.compileShader` in JS.
-   * **Check for compilation errors** and show them in a console panel.
-
-3. **Hot Reloading**
-
-   * If compilation succeeds:
-
-     * `gl.attachShader` → `gl.linkProgram` → `gl.useProgram`.
-     * Redraw the fullscreen quad.
-   * If compilation fails:
-
-     * Keep old shader running, show errors.
-
-4. **Uniforms for Interaction**
-
-   * Provide uniforms for **zoom, pan, max iterations, coloring options**.
-   * Students can reference them in their code:
-
-     ```glsl
-     uniform vec2 u_center;
-     uniform float u_zoom;
-     uniform int u_maxIter;
+     gl.uniform1f(xminLoc, -2.0);
+     gl.uniform1f(xmaxLoc, 1.0);
+     gl.uniform1f(yminLoc, -1.2);
+     gl.uniform1f(ymaxLoc, 1.2);
      ```
-   * These can be hooked up to sliders or keyboard/mouse controls.
 
-5. **Safety and Sandbox**
+   - This ensures the vertices map properly to the fractal coordinates.
 
-   * WebGL already runs in a browser sandbox, but you may want:
+2. **Debug Mapping**
 
-     * To limit loops (`u_maxIter`) so fragment shader doesn’t freeze browser.
-     * To catch errors and revert gracefully.
+   - Verify the corners of the quad map correctly:
 
----
+     - Bottom-left: `(-1, -1)` → `(-2, -1.2)`
+     - Top-right: `(1, 1)` → `(1, 1.2)`
 
-## 3. UX Considerations
+   - Use a temporary color gradient (`gl_FragColor = vec4(v_uv, 0.0, 1.0)`) to confirm correct mapping.
 
-* **Editor + Canvas side by side**:
+3. **Connect Shaders**
 
-  * Canvas shows fractal
-  * Editor shows fragment shader
-* **One-click compile** or live compilation with debounce
-* **Error console** below editor
-* **Presets**: some starter fractal formulas, coloring schemes
+   - Ensure your JS compiles and attaches the vertex and fragment shaders.
+   - Make sure `fetch` works to load shader files (or hardcode them for debugging if necessary).
 
----
+4. **Render Loop**
 
-## 4. Suggested Next Step for Tomorrow
+   - Call `gl.drawArrays(gl.TRIANGLES, 0, 6)` after setup.
+   - Optional: implement continuous render for interactive exploration.
 
-Since right now you have:
+5. **Future Enhancements**
 
-* Canvas & WebGL working
-* Fullscreen quad rendering
-* UV gradient working
-
-The next step is:
-
-1. **Add a uniform structure** in your JS:
-
-   * `u_resolution` (vec2)
-   * `u_time` (float)
-   * `u_center`, `u_zoom`, `u_maxIter`
-2. **Update the fragment shader** to accept uniforms.
-3. **Render a simple Mandelbrot or Julia iteration** using `v_uv` mapped to complex coordinates.
-
-Once that works, you can **swap the shader source dynamically** and you’re on your way to an educational shader playground.
+   - Allow live shader editing from the browser.
+   - Adjustable viewport zoom/pan.
+   - Support for different fractal formulas (Julia sets, Mandelbrot variants).
+   - More precise math if necessary (`highp float`).
 
 ---
 
-If you want, I can sketch a **minimal “live shader editor” setup** for tomorrow that just loads a fragment shader string, compiles it, and redraws — keeping your WebGL canvas intact.
+### **Things to Keep in Mind**
 
-Do you want me to do that?
+- WebGL `uniforms` must be set from JS before drawing.
+- Vertex shader can be minimal; mapping to complex plane can also be done in the vertex shader to simplify fragment shader.
+- Fragment shader currently uses `int` and `float` conversions for iteration counting.
+- The goal is **educational interactivity**, so clear, readable code is important.
 
+---
+
+If you hand this to a new ChatGPT, it can pick up from your last working shaders and JS, and help you finish **displaying the fractal properly** and **set up live updates for shader experimentation**.
