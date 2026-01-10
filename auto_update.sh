@@ -44,7 +44,7 @@ cleanup() {
 		echo_log INFO "Stopping server (PID=$SERVER_PID)"
 		kill -- -"$SERVER_PID" 2>/dev/null || true
 		wait "$SERVER_PID" 2>/dev/null
-		$SERVER_PID=""
+		SERVER_PID=""
 	fi
 }
 
