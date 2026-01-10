@@ -1,4 +1,4 @@
-import { initWebGL } from "./utils/webGL";
+import { initWebGL } from "./utils/webGL.js";
 
 main();
 
