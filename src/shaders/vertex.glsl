@@ -20,7 +20,7 @@ void main() {
     vec2    uv = a_position * 0.5; // map from [-1,1] to [-0.5,0.5]
 
     // map to complex plane
-    v_c = u_center + u_scale * vec2(uv.x, uv.y * u_aspect);
+    v_c = u_center + u_scale * vec2(uv.x, uv.y / u_aspect);
 
     gl_Position = vec4(a_position, 0.0, 1.0);
 }
