@@ -1,53 +1,21 @@
+import { initWebGL } from "./utils/webGL";
+
 main();
 
+const initialBounds = {
+  reMin: -2.0,
+  reMax: 1.0,
+  imMin: -1.2,
+  imMax: 1.2,
+};
+
 async function main() {
-  const vertexShaderSource = await loadShaderSource("./shaders/vertex.glsl");
-  const fragmentShaderSource = await loadShaderSource(
+  const gl = await initWebGL(
+    "./shaders/vertex.glsl",
     "./shaders/fragment.glsl"
   );
 
-  const canvas = document.querySelector("#glCanvas");
-  canvas.width = window.innerWidth * window.devicePixelRatio;
-  canvas.height = window.innerHeight * window.devicePixelRatio;
-
-  const gl = canvas.getContext("webgl");
-  if (!gl) {
-    alert(
-      "WebGL initialisation impossible. Your browser or machine cannot support it."
-    );
-    return;
-  }
-
-  gl.viewport(0, 0, canvas.width, canvas.height);
-  gl.clearColor(1.0, 0.0, 0.0, 1.0); // DEBUG: red
-  // gl.clearColor(0.0, 0.0, 0.0, 1.0); // PRODUCTION: black
-  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-  const positions = new Float32Array([
-    -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1,
-  ]);
-
-  const positionBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
-
-  const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-  const fragmentShader = createShader(
-    gl,
-    gl.FRAGMENT_SHADER,
-    fragmentShaderSource
-  );
-  const program = createProgram(gl, vertexShader, fragmentShader);
-  gl.useProgram(program);
-
-  const INITIAL_BOUNDS = {
-    reMin: -2.0,
-    reMax: 1.0,
-    imMin: -1.2,
-    imMax: 1.2,
-  };
-  const uViewport = getViewport(INITIAL_BOUNDS, canvas);
-  console.log(uViewport);
+  const uViewport = getViewport(initialBounds, canvas);
 
   const uCenterLoc = gl.getUniformLocation(program, "u_center");
   const uScaleLoc = gl.getUniformLocation(program, "u_scale");
@@ -65,43 +33,9 @@ async function main() {
   gl.drawArrays(gl.TRIANGLES, 0, 6); // 6 vertices for 2 triangles (full-screen quad)
 }
 
-async function loadShaderSource(url) {
-  const res = await fetch(url);
-  return await res.text();
-}
-
-function createShader(gl, type, source) {
-  const shader = gl.createShader(type);
-  gl.shaderSource(shader, source);
-  gl.compileShader(shader);
-
-  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    console.error("Shader compile failed:", gl.getShaderInfoLog(shader));
-    gl.deleteShader(shader);
-    return null;
-  }
-
-  return shader;
-}
-
-function createProgram(gl, vertexShader, fragmentShader) {
-  const program = gl.createProgram();
-  gl.attachShader(program, vertexShader);
-  gl.attachShader(program, fragmentShader);
-  gl.linkProgram(program);
-
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    console.error("Program link failed:", gl.getProgramInfoLog(program));
-    gl.deleteProgram(program);
-    return null;
-  }
-
-  return program;
-}
-
-function getViewport(INITIAL_BOUNDS, canvas) {
-  let boundsWidth = INITIAL_BOUNDS.reMax - INITIAL_BOUNDS.reMin;
-  const boundsHeight = INITIAL_BOUNDS.imMax - INITIAL_BOUNDS.imMin;
+function getViewport(bounds, canvas) {
+  let boundsWidth = bounds.reMax - bounds.reMin;
+  const boundsHeight = bounds.imMax - bounds.imMin;
 
   const boundsAspect = boundsWidth / boundsHeight,
     canvasAspect = canvas.width / canvas.height;
@@ -111,8 +45,8 @@ function getViewport(INITIAL_BOUNDS, canvas) {
   }
 
   const center = {
-    re: (INITIAL_BOUNDS.reMax + INITIAL_BOUNDS.reMin) / 2,
-    im: (INITIAL_BOUNDS.imMax + INITIAL_BOUNDS.imMin) / 2,
+    re: (bounds.reMax + bounds.reMin) / 2,
+    im: (bounds.imMax + bounds.imMin) / 2,
   };
   const scale = boundsWidth;
   const aspect = canvasAspect;
