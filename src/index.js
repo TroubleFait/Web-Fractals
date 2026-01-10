@@ -1,4 +1,6 @@
 import { initWebGL } from "./utils/webGL.js";
+import { setupControls } from "./utils/controls.js";
+import { cAdd, cSub, cScalMul } from "complex";
 
 main();
 
@@ -15,22 +17,59 @@ async function main() {
     "./shaders/fragment.glsl"
   );
 
-  const uViewport = getViewport(initialBounds, canvas);
+  const currentView = getViewport(initialBounds, canvas);
+
+  let panStartView = null;
+  const onPan = (pointer) => {
+    /**
+     * Must register the panStartView at the start of the movement
+     * so that it can always refer to it as currentView changes
+     * tricky, might need to do it at pointerdown and pointerup
+     */
+  };
+  const onZoom = (focus, delta) => {
+    /**
+     * Change the currentView's center and scale such that focus stays in-place.
+     *
+     * CF0 = [center0, focus], CF1 = [center1, focus], s0 = old scale, s1 = new scale
+     * CF1 / s1 = CF0 / s0
+     * center1 =?
+     * CF1 = s1 * CF0 / s0
+     * (center1 - focus) = (center0 - focus) * s1 / s0
+     * center1 = focus + (center0 - focus) * s1 / s0
+     */
+
+    const oldScale = currentView.scale;
+    currentView /= Math.pow(1.01, delta);
+
+    const distToCenter = cSub(currentView.center, focus);
+    currentView.center = cAdd(
+      focus,
+      cScalMul(distToCenter, currentView.scale / oldScale)
+    );
+  };
+  const onPanZoom = (pointers) => {};
+
+  setupControls(canvas, onPan, onZoom, onPanZoom);
 
   const uCenterLoc = gl.getUniformLocation(program, "u_center");
   const uScaleLoc = gl.getUniformLocation(program, "u_scale");
   const uAspect = gl.getUniformLocation(program, "u_aspect");
 
-  gl.uniform2f(uCenterLoc, uViewport.center.re, uViewport.center.im);
-  gl.uniform1f(uScaleLoc, uViewport.scale);
-  gl.uniform1f(uAspect, uViewport.aspect);
+  gl.uniform2f(uCenterLoc, currentView.center.re, currentView.center.im);
+  gl.uniform1f(uScaleLoc, currentView.scale);
+  gl.uniform1f(uAspect, currentView.aspect);
 
   const aPosition = gl.getAttribLocation(program, "a_position");
   gl.enableVertexAttribArray(aPosition);
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
 
-  gl.drawArrays(gl.TRIANGLES, 0, 6); // 6 vertices for 2 triangles (full-screen quad)
+  function draw() {
+    gl.drawArrays(gl.TRIANGLES, 0, 6); // 6 vertices for 2 triangles (full-screen quad)
+  }
+
+  draw();
 }
 
 function getViewport(bounds, canvas) {
