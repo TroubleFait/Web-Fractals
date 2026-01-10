@@ -1,0 +1,621 @@
+[2026-01-09 23:28:23] [INFO] === Starting auto_update ===
+[2026-01-09 23:28:23] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-09 23:28:23] [INFO] Server started (PID=13959)
+
+Serving on:
+	http://192.168.1.29:8000/
+
+Open this file:
+	http://192.168.1.29:8000/src/index.html
+
+[2026-01-09 23:28:23] [INFO] Monitoring branch 'WebGL' at commit f77826853ef5ae17c043fc33e8710a755427f762
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+192.168.1.95 - - [09/Jan/2026 23:28:44] "GET / HTTP/1.1" 200 -
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+   f778268..ce31b3e  WebGL      -> origin/WebGL
+[2026-01-09 23:37:28] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at ce31b3e Server redirect
+[2026-01-09 23:37:28] [INFO] Restarting server...
+[2026-01-09 23:37:28] [INFO] Server started (PID=15002)
+
+Serving on:
+	http://192.168.1.29:8000/
+
+[2026-01-09 23:37:28] [INFO] Server restarted.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+192.168.1.95 - - [09/Jan/2026 23:37:35] "GET / HTTP/1.1" 200 -
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+192.168.1.95 - - [09/Jan/2026 23:37:36] "GET / HTTP/1.1" 200 -
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+[2026-01-09 23:40:08] [INFO] === Starting auto_update ===
+[2026-01-09 23:40:08] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-09 23:40:08] [INFO] Server started (PID=15398)
+
+Serving on:
+	http://192.168.1.29:8000/
+
+[2026-01-09 23:40:08] [INFO] Monitoring branch 'WebGL' at commit ce31b3ebf9e04de6ad050dd78e0d220324d9ad77
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+   ce31b3e..033a557  WebGL      -> origin/WebGL
+[2026-01-09 23:40:25] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at 033a557 Less log
+[2026-01-09 23:40:25] [INFO] Restarting server...
+[2026-01-09 23:40:25] [INFO] Server started (PID=15482)
+[2026-01-09 23:40:25] [INFO] Server restarted.
+
+Serving on:
+	http://192.168.1.29:8000/
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+192.168.1.95 - - [09/Jan/2026 23:40:31] "GET / HTTP/1.1" 200 -
+192.168.1.95 - - [09/Jan/2026 23:40:31] "GET /styles.css HTTP/1.1" 304 -
+192.168.1.95 - - [09/Jan/2026 23:40:31] "GET /index.js HTTP/1.1" 304 -
+192.168.1.95 - - [09/Jan/2026 23:40:31] "GET /shaders/vertex.glsl HTTP/1.1" 304 -
+192.168.1.95 - - [09/Jan/2026 23:40:31] "GET /shaders/fragment.glsl HTTP/1.1" 304 -
+From github.com:TroubleFait/Web-Fractals
+ * branch            WebGL      -> FETCH_HEAD
+[2026-01-09 23:53:10] [INFO] === Starting auto_update ===
+[2026-01-09 23:53:10] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-09 23:53:10] [INFO] Server started (PID=16591)
+
+Serving on:
+	http://192.168.1.29:8000/
+[2026-01-09 23:53:10] [INFO] Monitoring branch 'WebGL' at commit 303239446f2b901e8b230b24ef1f5845738391b9
+
+[2026-01-09 23:54:11] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at b423ae9 Some silencing
+[2026-01-09 23:54:11] [INFO] Restarting server...
+[2026-01-09 23:54:12] [INFO] Server started (PID=17071)
+[2026-01-09 23:54:12] [INFO] Server restarted.
+
+Serving on:
+	http://192.168.1.29:8000/
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[2026-01-09 23:54:19] [INFO] === Starting auto_update ===
+[2026-01-09 23:54:19] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-09 23:54:20] [INFO] Server started (PID=17101)
+
+Serving on:
+	http://192.168.1.29:8000/
+
+[2026-01-09 23:54:20] [INFO] Monitoring branch 'WebGL' at commit b423ae97e3876216f0d0e1c167b2ffc1065d3ad9
+[2026-01-09 23:55:06] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at fb2f4d9 Silencing didn't work
+[2026-01-09 23:55:07] [INFO] Restarting server...
+[2026-01-09 23:55:07] [INFO] Server started (PID=17254)
+
+Serving on:
+	http://192.168.1.29:8000/
+[2026-01-09 23:55:07] [INFO] Server restarted.
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[2026-01-09 23:55:14] [INFO] === Starting auto_update ===
+[2026-01-09 23:55:14] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-09 23:55:14] [INFO] Server started (PID=17286)
+
+Serving on:
+	http://192.168.1.29:8000/
+
+[2026-01-09 23:55:14] [INFO] Monitoring branch 'WebGL' at commit fb2f4d9e416752a06061b78005111e1bb83bc2ce
+[2026-01-09 23:55:53] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at 2d40b97 Silence
+[2026-01-09 23:55:53] [INFO] Restarting server...
+[2026-01-09 23:55:53] [INFO] Server started (PID=17434)
+
+Serving on:
+	http://192.168.1.29:8000/
+[2026-01-09 23:55:53] [INFO] Server restarted.
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[2026-01-09 23:55:58] [INFO] === Starting auto_update ===
+[2026-01-09 23:55:58] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-09 23:55:58] [INFO] Server started (PID=17494)
+
+Serving on:
+	http://192.168.1.29:8000/
+
+[2026-01-09 23:55:58] [INFO] Monitoring branch 'WebGL' at commit 2d40b972bea4347d3cef312bbd1e20b94b32b4bc
+[2026-01-10 00:07:01] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at 6d4e74d script status
+[2026-01-10 00:07:01] [INFO] Restarting server...
+[2026-01-10 00:07:01] [INFO] Server started (PID=18748)
+[2026-01-10 00:07:01] [INFO] Server restarted.
+
+Serving on:
+	http://192.168.1.29:8000/
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[2026-01-10 00:07:08] [INFO] === Starting auto_update ===
+[2026-01-10 00:07:08] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-10 00:07:08] [INFO] Server started (PID=18792)
+
+Serving on:
+	http://192.168.1.29:8000/
+[2026-01-10 00:07:08] [INFO] Monitoring branch 'WebGL' at commit 6d4e74d872375d416e524e9ee8fd85ff495b205a
+
+192.168.1.95 - - [10/Jan/2026 00:08:28] "GET / HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 00:08:28] "GET /styles.css HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 00:08:29] "GET /index.js HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 00:08:29] "GET /shaders/vertex.glsl HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 00:08:29] "GET /shaders/fragment.glsl HTTP/1.1" 304 -
+[2026-01-10 00:17:11] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at a85936f TODO list
+[2026-01-10 00:17:11] [INFO] Restarting server...
+[2026-01-10 00:17:11] [INFO] Server started (PID=19092)
+
+Serving on:
+	http://192.168.1.29:8000/
+[2026-01-10 00:17:11] [INFO] Server restarted.
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[2026-01-10 00:55:35] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at a223c7b Shaders
+[2026-01-10 00:55:35] [INFO] Restarting server...
+[2026-01-10 00:55:35] [INFO] Server started (PID=19693)
+[2026-01-10 00:55:35] [INFO] Server restarted.
+
+Serving on:
+	http://192.168.1.29:8000/
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+192.168.1.95 - - [10/Jan/2026 00:55:39] "GET / HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 00:55:39] "GET /styles.css HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 00:55:39] "GET /index.js HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 00:55:39] "GET /shaders/vertex.glsl HTTP/1.1" 200 -
+192.168.1.95 - - [10/Jan/2026 00:55:39] "GET /shaders/fragment.glsl HTTP/1.1" 200 -
+192.168.1.95 - - [10/Jan/2026 01:06:51] "GET / HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 01:06:51] "GET /shaders/vertex.glsl HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 01:06:51] "GET /shaders/fragment.glsl HTTP/1.1" 304 -
+[2026-01-10 01:06:56] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at e5bf444 Bounds
+[2026-01-10 01:06:57] [INFO] Restarting server...
+[2026-01-10 01:06:57] [INFO] Server started (PID=22364)
+[2026-01-10 01:06:57] [INFO] Server restarted.
+
+Serving on:
+	http://192.168.1.29:8000/
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+192.168.1.95 - - [10/Jan/2026 01:06:57] "GET / HTTP/1.1" 304 -
+192.168.1.95 - - [10/Jan/2026 01:06:59] "GET / HTTP/1.1" 304 -
+[2026-01-10 01:16:20] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at d0147ec ChatGPT brief
+[2026-01-10 01:16:20] [INFO] Restarting server...
+[2026-01-10 01:16:20] [INFO] Server started (PID=23403)
+[2026-01-10 01:16:20] [INFO] Server restarted.
+
+Serving on:
+	http://192.168.1.29:8000/
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+192.168.1.29 - - [10/Jan/2026 01:16:36] "GET / HTTP/1.1" 304 -
+192.168.1.29 - - [10/Jan/2026 01:16:36] "GET /styles.css HTTP/1.1" 304 -
+192.168.1.29 - - [10/Jan/2026 01:16:36] "GET /index.js HTTP/1.1" 200 -
+192.168.1.29 - - [10/Jan/2026 01:16:36] "GET /shaders/vertex.glsl HTTP/1.1" 200 -
+192.168.1.29 - - [10/Jan/2026 01:16:36] "GET /shaders/fragment.glsl HTTP/1.1" 200 -
+192.168.1.29 - - [10/Jan/2026 01:17:18] "GET / HTTP/1.1" 304 -
+192.168.1.29 - - [10/Jan/2026 01:17:32] "GET / HTTP/1.1" 304 -
+[2026-01-10 15:47:57] [INFO] === Starting auto_update ===
+[2026-01-10 15:47:57] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-10 15:47:57] [INFO] Server started (PID=20403)
+
+Serving on:
+	http://192.168.1.29:8000/
+
+[2026-01-10 15:47:57] [INFO] Monitoring branch 'WebGL' at commit d0147ec5237f856a5dce51e8fc693031af30cfa6
+[2026-01-10 16:51:41] [INFO] === Starting auto_update ===
+[2026-01-10 16:51:41] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-10 16:51:41] [INFO] Server started (PID=28044)
+
+Serving on:
+	http://192.168.1.29:8000/
+
+[2026-01-10 16:51:41] [INFO] Monitoring branch 'WebGL' at commit d0147ec5237f856a5dce51e8fc693031af30cfa6
+[2026-01-10 16:52:36] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at c3424be Better scripting
+[2026-01-10 16:52:36] [INFO] Restarting server...
+[2026-01-10 16:52:36] [INFO] Server started (PID=28391)
+Serving on:	http://192.168.1.29:8000/
+[2026-01-10 16:52:36] [INFO] Server restarted.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[2026-01-10 16:52:49] [INFO] === Starting auto_update ===
+[2026-01-10 16:52:49] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-10 16:52:49] [INFO] Server started (PID=28443)
+Serving on:	http://192.168.1.29:8000/
+[2026-01-10 16:52:49] [INFO] Open your browser at: http://:8000/
+[2026-01-10 16:52:49] [INFO] Monitoring branch 'WebGL' at commit c3424bea22f4a8499d7603a9bf381c0f35ebe3d3
+[2026-01-10 16:53:59] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at 2985c61 minor script fix
+[2026-01-10 16:53:59] [INFO] Restarting server...
+[2026-01-10 16:53:59] [INFO] Stopping server (PID=28443)
+[2026-01-10 16:53:59] [INFO] Server started (PID=28657)
+Serving on:	http://192.168.1.29:8000/
+[2026-01-10 16:53:59] [INFO] Open your browser at: http://:8000/
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[2026-01-10 16:54:21] [INFO] Stopping server (PID=28657)
+[2026-01-10 16:54:24] [INFO] Stopping server (PID=28657)
+[2026-01-10 16:54:27] [INFO] Stopping server (PID=28657)
+[2026-01-10 16:54:29] [INFO] Stopping server (PID=28657)
+[2026-01-10 17:14:34] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at 58edc27 script trap exit
+[2026-01-10 17:14:34] [INFO] Restarting server...
+[2026-01-10 17:14:34] [INFO] Stopping server (PID=28657)
+[2026-01-10 17:14:34] [INFO] Server started (PID=31392)
+Serving on:	http://192.168.1.29:8000/
+[2026-01-10 17:14:35] [INFO] Open your browser at: http://:8000/
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[2026-01-10 17:14:39] [INFO] Stopping server (PID=31392)
+[2026-01-10 17:14:41] [INFO] Stopping server (PID=31392)
+[2026-01-10 17:18:37] [INFO] Stopping server (PID=31392)
+[2026-01-10 17:28:59] [INFO] Stopping server (PID=31392)
+[2026-01-10 17:32:28] [INFO] === Starting auto_update ===
+[2026-01-10 17:32:28] [INFO] Stopping any existing HTTP servers on port 8000
+[2026-01-10 17:32:28] [INFO] Server started (PID=5513)
+Serving on:	http://192.168.1.29:8000/
+[2026-01-10 17:32:28] [INFO] Monitoring branch 'WebGL' at commit 58edc277370152d74e715040a9b43ee9a892f89a
+[2026-01-10 17:32:35] [INFO] Caught signal INT, cleaning up...
+[2026-01-10 17:32:35] [INFO] Stopping server (PID=5513)
+[2026-01-10 17:32:35] [INFO] Cleaning up...
+[2026-01-10 17:32:35] [INFO] Stopping server (PID=5513)
+[2026-01-10 17:54:11] [INFO] === Starting auto_update ===
+[2026-01-10 17:54:11] [INFO] Stopping any existing HTTP servers on port 8000
+Terminated                 python -m http.server "$PORT" --bind "$BIND" --directory "$DIR"
+[2026-01-10 17:54:12] [INFO] Server started (PID=6403)
+Serving on:	http://192.168.1.29:8000/
+[2026-01-10 17:54:12] [INFO] Monitoring branch 'WebGL' at commit 58edc277370152d74e715040a9b43ee9a892f89a
+[2026-01-10 17:54:22] [INFO] New changes detected. Pulling latest commits...
+HEAD is now at 028a0f2 shader test
+[2026-01-10 17:54:22] [INFO] Restarting server...
+[2026-01-10 17:54:22] [INFO] Stopping server (PID=6403)
+[2026-01-10 17:54:22] [INFO] Server started (PID=6527)
+Serving on:	http://192.168.1.29:8000/
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1310, in <module>
+    test(
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1257, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 1304, in server_bind
+    return super().server_bind()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/data/data/com.termux/files/usr/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[2026-01-10 17:55:17] [INFO] Caught signal INT, cleaning up...
+[2026-01-10 17:55:17] [INFO] Stopping server (PID=6527)
+[2026-01-10 17:55:17] [INFO] Cleaning up...
+[2026-01-10 17:55:17] [INFO] Stopping server (PID=6527)
+[2026-01-10 17:55:51] [Cannot cd into -show_logfile] 
