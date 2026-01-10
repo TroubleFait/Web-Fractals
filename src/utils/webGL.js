@@ -36,7 +36,7 @@ export async function initWebGL(vertexShaderPath, fragmentShaderPath) {
   const program = createProgram(gl, vertexShader, fragmentShader);
   gl.useProgram(program);
 
-  return { gl, canvas };
+  return { gl, canvas, program };
 }
 
 async function loadShaderSource(url) {

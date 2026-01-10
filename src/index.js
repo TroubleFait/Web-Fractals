@@ -10,7 +10,7 @@ const initialBounds = {
 };
 
 async function main() {
-  const { gl, canvas } = await initWebGL(
+  const { gl, canvas, program } = await initWebGL(
     "./shaders/vertex.glsl",
     "./shaders/fragment.glsl"
   );
