@@ -45,7 +45,23 @@ cleanup() {
 	fi
 }
 
-trap cleanup EXIT INT TERM
+cleanup_and_exit() {
+	local sig="$1"
+	if [[ -z "$sig" ]]; then
+		echo_log INFO "Cleaning up..."
+		cleanup
+		exit 0
+	else
+		echo_log INFO "Caught signal $sig, cleaning up..."
+		cleanup
+		exit 1
+	fi
+}
+
+trap 'cleanup_and_exit INT' INT
+trap 'cleanup_and_exit TERM' TERM
+trap 'cleanup_and_exit' EXIT
+
 start_server "$INDEX_FILE"
 
 START_BRANCH=$(git rev-parse --abbrev-ref HEAD)
