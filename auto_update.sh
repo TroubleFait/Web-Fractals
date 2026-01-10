@@ -33,15 +33,18 @@ pkill -f "python -m http.server $SERVER_PORT"
 
 start_server() {
 	local file="$1"
-	bash "$SERVER_SCRIPT" --lan "$file" 2>&1 | tee -a "$LOG_FILE" &
+
+	setsid bash "$SERVER_SCRIPT" --lan "$file" >> "$LOG_FILE" 2>&1 &
 	SERVER_PID=$!
 	echo_log INFO "Server started (PID=$SERVER_PID)"
 }
 
 cleanup() {
-	if [[ -n "$SERVER_PID" ]]; then
+	if [[ -n "$SERVER_PID" ]] && kill -0 "$SERVER_PID" 2>/dev/null; then
 		echo_log INFO "Stopping server (PID=$SERVER_PID)"
-		kill -- -"$SERVER_PID" 2>/dev/null
+		kill -- -"$SERVER_PID" 2>/dev/null || true
+		wait "$SERVER_PID" 2>/dev/null
+		$SERVER_PID=""
 	fi
 }
 
