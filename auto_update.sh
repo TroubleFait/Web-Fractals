@@ -29,17 +29,25 @@ SERVER_PORT=8000
 echo_log INFO "=== Starting auto_update ==="
 
 echo_log INFO "Stopping any existing HTTP servers on port $SERVER_PORT"
-pkill -f "python -m http.server $SERVER_PORT" 2>/dev/null
+pkill -f "python -m http.server $SERVER_PORT"
 
 start_server() {
 	local file="$1"
-	bash "$SERVER_SCRIPT" --lan "$file" >> "$LOG_FILE" 2>&1 &
+	bash "$SERVER_SCRIPT" --lan "$file" 2>&1 | tee -a "$LOG_FILE" &
 	SERVER_PID=$!
 	echo_log INFO "Server started (PID=$SERVER_PID)"
+	echo_log INFO "Open your browser at: http://$(hostname -I | awk '{print $1}'):$SERVER_PORT/"
 }
 
+cleanup() {
+	if [[ -n "$SERVER_PID" ]]; then
+		echo_log INFO "Stopping server (PID=$SERVER_PID)"
+		kill -- -"$SERVER_PID" 2>/dev/null
+	fi
+}
+
+trap cleanup EXIT INT TERM
 start_server "$INDEX_FILE"
-trap '[[ -n "$SERVER_PID" ]] && kill $SERVER_PID 2>/dev/null' EXIT
 
 START_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo_log INFO "Monitoring branch '$START_BRANCH' at commit $(git rev-parse HEAD)"
@@ -62,7 +70,7 @@ while true; do
 	if [[ "$CURRENT_BRANCH" != "$START_BRANCH" ]]; then
 		status_clear
 		echo_log WARN "Branch changed from $START_BRANCH to $CURRENT_BRANCH. Exiting for safety."
-		kill "$SERVER_PID" 2>/dev/null
+		cleanup
 		exit 1
 	fi
 
@@ -81,9 +89,8 @@ while true; do
 		git reset --hard "origin/$START_BRANCH" >> "$LOG_FILE" 2>&1
 
 		echo_log INFO "Restarting server..."
-		kill "$SERVER_PID" 2>/dev/null
+		cleanup
 		start_server "$INDEX_FILE"
-		echo_log INFO "Server restarted."
 	fi
 
 	sleep 5 # check every 5 seconds

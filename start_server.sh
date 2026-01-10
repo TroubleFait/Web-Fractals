@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-	echo "Usage:"
-	echo "$0 [--lan] [file]"
+	echo "Usage:	$0 [--lan] [file]"
 	exit 0
 fi
 
@@ -17,20 +16,14 @@ if [[ "$1" == "--lan" ]]; then
 	shift
 fi
 
-FILE="$1"
+echo "Serving on:	http://${HOST_LABEL}:${PORT}/"
 
-echo
-echo "Serving on:"
-echo "	http://${HOST_LABEL}:${PORT}/"
+FILE="$1"
 
 if [[ -n "$FILE" ]]; then
 	DIR=$(dirname "$FILE")
-	# echo
-	# echo "Open this file:"
-	# echo "	http://${HOST_LABEL}:${PORT}/${FILE}"
 else
 	DIR="."
 fi
 
-echo
 python -m http.server "$PORT" --bind "$BIND" --directory "$DIR"
