@@ -22,12 +22,15 @@ vec2 f(vec2 z, vec2 c) {
 }
 
 int iterations(vec2 c, int max) {
-    vec2 z = vec2(0.0);
-    int n;
-    for (n = 0; n < max; ++n) {
+    vec2    z = vec2(0.0);
+    int     n = 0;
+
+    for (int i = 0; i < max; ++i) {
         if (cSquaredAbs(z) > 4.0) break;
         z = f(z, c);
+        ++n;
     }
+
     return n;
 }
 
