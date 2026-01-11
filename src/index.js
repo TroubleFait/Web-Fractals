@@ -54,6 +54,7 @@ async function main() {
     const onTimeout = () => {
       debugPoints[PointTypes.WHEEL][0] = Infinity;
       debugPoints[PointTypes.WHEEL][1] = Infinity;
+      draw();
     };
     debugPointTimeout = setTimeout(onTimeout, 50);
 
