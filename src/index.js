@@ -64,18 +64,19 @@ async function main() {
   gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
 
   function draw() {
+    console.log("draw", currentView);
+
     gl.uniform2f(uCenterLoc, currentView.center.re, currentView.center.im);
     gl.uniform1f(uScaleLoc, currentView.scale);
     gl.uniform1f(uAspect, currentView.aspect);
 
     gl.drawArrays(gl.TRIANGLES, 0, 6); // 6 vertices for 2 triangles (full-screen quad)
-
-    console.log("draw", currentView);
   }
 
   draw();
 
   setInterval(() => {
+    console.log("time");
     currentView.scale *= 1.1;
     draw();
   }, 1000);
