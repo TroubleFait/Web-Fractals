@@ -221,8 +221,11 @@ function pxToComplex({ x, y }, canvas, view) {
   //   )
   // );
 
-  return {
-    re: (x / canvas.width - 0.5) * scale,
-    im: ((y / canvas.height - 0.5) * scale) / aspect,
-  };
+  return cSub(
+    {
+      re: (x / canvas.width - 0.5) * view.scale,
+      im: ((y / canvas.height - 0.5) * view.scale) / view.aspect,
+    },
+    view.center
+  );
 }
