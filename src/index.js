@@ -97,7 +97,7 @@ async function main() {
     [Infinity, Infinity], // bonus1
     [Infinity, Infinity], // bonus2
   ];
-  convertDebugPoint = (point) => {
+  const convertDebugPoint = (point) => {
     const complexPoint = pxToComplex(
       { x: point[0], y: point[1] },
       canvas,
