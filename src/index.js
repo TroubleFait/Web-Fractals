@@ -1,6 +1,6 @@
 import { initWebGL } from "./utils/webGL.js";
 import { setupControls } from "./utils/controls.js";
-import { cAdd, cSub, cScalMul, cScalDiv } from "./utils/complex.js";
+import { cAdd, cSub, cScalMul } from "./utils/complex.js";
 
 main();
 
@@ -141,9 +141,28 @@ async function main() {
   // }, 1000);
 }
 
-function getViewport(bounds, canvas) {
-  let boundsWidth = bounds.reMax - bounds.reMin;
-  const boundsHeight = bounds.imMax - bounds.imMin;
+/**
+ *
+ * @param {{
+ *    reMin: number,
+ *    reMax: number,
+ *    imMin: number,
+ *    imMax: number
+ * }} initialBounds of the complex plane
+ * @param {{
+ *    width: number, height: number
+ * }} canvas
+ * @returns {{
+ *    center: complex, scale: number, aspect: number
+ * }}
+ *
+ * @returns `center` the center of the complex plane
+ * @returns `scale` the visible width of the complex plane
+ * @returns `aspect` the visible `width / height`
+ */
+function getViewport(initialBounds, canvas) {
+  let boundsWidth = initialBounds.reMax - initialBounds.reMin;
+  const boundsHeight = initialBounds.imMax - initialBounds.imMin;
 
   const boundsAspect = boundsWidth / boundsHeight,
     canvasAspect = canvas.width / canvas.height;
@@ -153,8 +172,8 @@ function getViewport(bounds, canvas) {
   }
 
   const center = {
-    re: (bounds.reMax + bounds.reMin) / 2,
-    im: (bounds.imMax + bounds.imMin) / 2,
+    re: (initialBounds.reMax + initialBounds.reMin) / 2,
+    im: (initialBounds.imMax + initialBounds.imMin) / 2,
   };
   const scale = boundsWidth;
   const aspect = canvasAspect;
@@ -163,37 +182,47 @@ function getViewport(bounds, canvas) {
 }
 
 function pxToComplex({ x, y }, canvas, view) {
-  const pxDistCanvasCenterToPoint = {
-    x: x - canvas.width / 2,
-    y: y - canvas.height / 2,
+  /**
+   * v_c = u_center + u_scale * vec2(uv.x, uv.y / u_aspect);
+   * This works
+   *
+   * x in px
+   * X is such that X(-0.5) = x(0 px) and X(0.5) = x(canvasWidth px)
+   * X = x / canvasWidth - 0.5
+   * Y = y / canvasHeight - 0.5
+   *
+   * -0.5 * scale = reMin, 0.5 * scale = reMax
+   * re = X * scale
+   * im = Y * scale / aspect
+   *
+   * re = ((x / canvasWidth) - 0.5) * scale
+   * im = ((y / canvasHeight - 0.5)) * scale / aspect
+   */
+  // const pxDistCanvasCenterToPoint = {
+  //   x: x - canvas.width / 2,
+  //   y: y - canvas.height / 2,
+  // };
+
+  // console.log("point", { x, y });
+  // console.log("pxDistCanvasCenterToPoint", pxDistCanvasCenterToPoint);
+  // console.log("view", view);
+  // console.log("before scaling", {
+  //   re: pxDistCanvasCenterToPoint.x,
+  //   im: pxDistCanvasCenterToPoint.y,
+  // });
+  // console.log(
+  //   "return ",
+  //   cScalMul(
+  //     {
+  //       re: pxDistCanvasCenterToPoint.x,
+  //       im: pxDistCanvasCenterToPoint.y,
+  //     },
+  //     view.scale / canvas.width
+  //   )
+  // );
+
+  return {
+    re: (x / canvas.width - 0.5) * scale,
+    im: ((y / canvas.height - 0.5) * scale) / aspect,
   };
-
-  console.log("point", { x, y });
-  console.log("pxDistCanvasCenterToPoint", pxDistCanvasCenterToPoint);
-  console.log("view", view);
-  console.log("before scaling", {
-    re: pxDistCanvasCenterToPoint.x,
-    // im: pxDistCanvasCenterToPoint.y / view.aspect,
-    im: pxDistCanvasCenterToPoint.y,
-  });
-  console.log(
-    "return ",
-    cScalMul(
-      {
-        re: pxDistCanvasCenterToPoint.x,
-        // im: pxDistCanvasCenterToPoint.y / view.aspect,
-        im: pxDistCanvasCenterToPoint.y,
-      },
-      view.scale / canvas.width
-    )
-  );
-
-  return cScalMul(
-    {
-      re: pxDistCanvasCenterToPoint.x,
-      // im: pxDistCanvasCenterToPoint.y / view.aspect,
-      im: pxDistCanvasCenterToPoint.y,
-    },
-    view.scale / canvas.width
-  );
 }
