@@ -64,39 +64,39 @@ async function main() {
   const uDebugCount = gl.getUniformLocation(program, "u_debugCount");
   const uDebugPointSize = gl.getUniformLocation(program, "u_debugPointSize");
 
-  const debugPoints = [
-    [canvas.width / 2, canvas.height / 2],
-    [0, canvas.height],
-    [canvas.width, canvas.height],
-    [0, 0],
-    [canvas.width, 0],
-  ];
-  debugPoints.forEach((point) => {
-    const complexPoint = pxToComplex(
-      { x: point[0], y: point[1] },
-      canvas,
-      currentView
-    );
-    point[0] = complexPoint.re;
-    point[1] = complexPoint.im;
-  });
-  // {
+  // const debugPoints = [
+  //   [canvas.width / 2, canvas.height / 2],
+  //   [0, canvas.height],
+  //   [canvas.width, canvas.height],
+  //   [0, 0],
+  //   [canvas.width, 0],
+  // ];
+  // debugPoints.forEach((point) => {
   //   const complexPoint = pxToComplex(
-  //     { x: debugPoints[0][0], y: debugPoints[0][1] },
+  //     { x: point[0], y: point[1] },
   //     canvas,
   //     currentView
   //   );
   //   point[0] = complexPoint.re;
   //   point[1] = complexPoint.im;
-  // }
-  console.log("complex debug points:", debugPoints);
-  // const debugPoints = [
-  //   [-0.5, 0.0],
-  //   [-2.0, -1.2],
-  //   [1.0, -1.2],
-  //   [-2.0, 1.2],
-  //   [1.0, 1.2],
-  // ];
+  // });
+  // // {
+  // //   const complexPoint = pxToComplex(
+  // //     { x: debugPoints[0][0], y: debugPoints[0][1] },
+  // //     canvas,
+  // //     currentView
+  // //   );
+  // //   point[0] = complexPoint.re;
+  // //   point[1] = complexPoint.im;
+  // // }
+  // console.log("complex debug points:", debugPoints);
+  const debugPoints = [
+    [-0.5, 0.0],
+    [-2.0, -1.2],
+    [1.0, -1.2],
+    [-2.0, 1.2],
+    [1.0, 1.2],
+  ];
   const debugColors = [
     [0.0, 0.0, 1.0],
     [0.0, 1.0, 0.0],
