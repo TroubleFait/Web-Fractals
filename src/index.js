@@ -21,7 +21,7 @@ async function main() {
 
   let panStartView = null;
   const onPointDown = (pointer) => {
-    pointer.startView = structuredClone(currentView);
+    panStartView = structuredClone(currentView);
   };
   const onPan = (pointer) => {
     const pxPanDist = {
