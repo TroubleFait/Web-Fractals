@@ -79,10 +79,9 @@ async function main() {
   // }, 1000);
 
   setInterval(() => {
-    currentView.center = cAdd(currentView.center, {
-      re: -0.1,
-      im: 0.2,
-    });
+    const cSlide = pxToComplex({ x: -10, y: 50 }, canvas, currentView);
+
+    currentView.center = cAdd(currentView.center, cSlide);
     draw();
   }, 1000);
 }
