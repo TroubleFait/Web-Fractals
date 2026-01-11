@@ -14,8 +14,9 @@ uniform float   u_debugPointSize;
 varying vec2    v_uv;
 
 // DEBUG
-vec3 debugPointsColor() {
-    vec3   energy = vec3(0.0);
+vec4 debugPointsColor() {
+    vec3    energy = vec3(0.0);
+    float   mask = 0.0;
 
     for (int i = 0; i < MAX_POINTS; ++i) {
         if (!(i < u_debugCount)) break;
@@ -24,10 +25,12 @@ vec3 debugPointsColor() {
         float   influence = smoothstep(0.0, u_debugPointSize, u_debugPointSize - d);
 
         energy += influence * u_debugColors[i];
+        mask = max(mask, influence);
     }
     float   m = max(energy.r, max(energy.g, energy.b));
+    vec3    rgbColor = energy / (1.0 + m);
 
-    return energy / (1.0 + m);
+    return vec4(rgbColor, mask);
 }
 
 vec2 cMul(vec2 a, vec2 b) {
@@ -62,12 +65,16 @@ void main() {
     // // Red gradient from left to right, green from top to bottom
     // gl_FragColor = vec4(v_uv.x, v_uv.y, 0.0, 1.0);
 
-    vec3   brightness = vec3(float(iterations()) / float(MAX_ITER));
+    vec3    brightness = vec3(float(iterations()) / float(MAX_ITER));
 
     // DEBUG
-    brightness += debugPointsColor();
+    vec4    debugColor = debugPointsColor();
 
-    gl_FragColor = vec4(brightness, 1.0);
+    // gl_FragColor = vec4(brightness, 1.0);
+    gl_FragColor = vec4(
+        mix(brightness, debugColor.rgb, debugColor.a),
+        1.0
+    );
 
     // gl_FragColor = vec4(        // mapping test
     //     (v_c.x + 2.0) / 3.0,    // normalize x from [-2,1] → [0,1]
