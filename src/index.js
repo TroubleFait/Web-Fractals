@@ -1,6 +1,6 @@
 import { initWebGL } from "./utils/webGL.js";
 import { setupControls } from "./utils/controls.js";
-import { cAdd, cSub, cScalMul } from "./utils/complex.js";
+import { cAdd, cSub, cScalMul, cScalDiv } from "./utils/complex.js";
 
 main();
 
@@ -176,7 +176,7 @@ function pxToComplex({ x, y }, canvas, view) {
     )
   );
 
-  return cScalMul(
+  return cScalDiv(
     {
       re: distToCanvasCenter.x,
       im: distToCanvasCenter.y / view.aspect,
