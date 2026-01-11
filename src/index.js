@@ -65,11 +65,11 @@ async function main() {
   const uDebugPointSize = gl.getUniformLocation(program, "u_debugPointSize");
 
   const debugPoints = [
-    [0.0, 0.0],
-    [-0.5, -0.5],
-    [0.5, -0.5],
-    [-0.5, 0.5],
-    [0.5, 0.5],
+    [canvas.width / 2, canvas.height / 2],
+    [0, canvas.height],
+    [canvas.width, canvas.height],
+    [0, 0],
+    [canvas.width, 0],
   ];
   debugPoints.forEach((point) => {
     const complexPoint = pxToComplex(
@@ -163,24 +163,24 @@ function getViewport(bounds, canvas) {
 }
 
 function pxToComplex({ x, y }, canvas, view) {
-  const distToCanvasCenter = {
+  const pxDistToCanvasCenter = {
     x: canvas.width / 2 - x,
     y: canvas.height / 2 - y,
   };
 
   console.log("point", { x, y });
-  console.log("distToCanvasCenter", distToCanvasCenter);
+  console.log("distToCanvasCenter", pxDistToCanvasCenter);
   console.log("view", view);
   console.log("before scaling", {
-    re: distToCanvasCenter.x,
-    im: distToCanvasCenter.y / view.aspect,
+    re: pxDistToCanvasCenter.x,
+    im: pxDistToCanvasCenter.y / view.aspect,
   });
   console.log(
     "return ",
     cScalMul(
       {
-        re: distToCanvasCenter.x,
-        im: distToCanvasCenter.y / view.aspect,
+        re: pxDistToCanvasCenter.x,
+        im: pxDistToCanvasCenter.y / view.aspect,
       },
       view.scale / canvas.width
     )
@@ -188,8 +188,8 @@ function pxToComplex({ x, y }, canvas, view) {
 
   return cScalMul(
     {
-      re: distToCanvasCenter.x,
-      im: distToCanvasCenter.y / view.aspect,
+      re: pxDistToCanvasCenter.x,
+      im: pxDistToCanvasCenter.y / view.aspect,
     },
     view.scale / canvas.width
   );
