@@ -13,8 +13,8 @@ const initialBounds = {
 
 async function main() {
   const { gl, canvas, program, positionBuffer } = await initWebGL(
-    "./shaders/vertex.glsl",
-    "./shaders/fragment.glsl"
+    "./shaders/vertex.vert",
+    "./shaders/fragment.frag"
   );
 
   const currentView = getViewport(initialBounds, canvas);
@@ -58,12 +58,39 @@ async function main() {
   const uScaleLoc = gl.getUniformLocation(program, "u_scale");
   const uAspect = gl.getUniformLocation(program, "u_aspect");
 
+  // DEBUG
+  const uDebugPoints = gl.getUniformLocation(program, "u_debugPoints");
+  const uDebugColors = gl.getUniformLocation(program, "u_debugColors");
+  const uDebugCount = gl.getUniformLocation(program, "u_debugCount");
+  const uDebugPointSize = gl.getUniformLocation(program, "u_debugPointSize");
+
+  const debugPoints = [
+    [0.0, 0.0],
+    [-0.5, -0.5],
+    [0.5, -0.5],
+    [-0.5, 0.5],
+    [0.5, 0.5],
+  ];
+  const debugColors = [
+    [0.0, 0.0, 1.0],
+    [0.0, 1.0, 0.0],
+    [0.0, 1.0, 1.0],
+    [1.0, 0.0, 0.0],
+    [1.0, 0.0, 1.0],
+  ];
+
   const aPosition = gl.getAttribLocation(program, "a_position");
   gl.enableVertexAttribArray(aPosition);
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
 
   function draw() {
+    // DEBUG
+    gl.uniform2fv(uDebugPoints, new Float32Array(debugPoints.flat()));
+    gl.uniform3fv(uDebugColors, new Float32Array(debugColors.flat()));
+    gl.uniform1i(uDebugCount, debugPoints.length);
+    gl.uniform1f(uDebugCount, 10.0);
+
     gl.uniform2f(uCenterLoc, currentView.center.re, currentView.center.im);
     gl.uniform1f(uScaleLoc, currentView.scale);
     gl.uniform1f(uAspect, currentView.aspect);
@@ -73,17 +100,19 @@ async function main() {
 
   draw();
 
+  // // Scale test
   // setInterval(() => {
   //   currentView.scale *= 1.1;
   //   draw();
   // }, 1000);
 
-  setInterval(() => {
-    const cSlide = pxToComplex({ x: -10, y: 50 }, canvas, currentView);
+  // // Slide test
+  // setInterval(() => {
+  //   const cSlide = pxToComplex({ x: -10, y: 50 }, canvas, currentView);
 
-    currentView.center = cAdd(currentView.center, cSlide);
-    draw();
-  }, 1000);
+  //   currentView.center = cAdd(currentView.center, cSlide);
+  //   draw();
+  // }, 1000);
 }
 
 function getViewport(bounds, canvas) {
