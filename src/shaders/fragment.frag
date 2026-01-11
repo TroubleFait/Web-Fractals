@@ -14,7 +14,7 @@ uniform float   u_debugPointSize;
 varying vec2    v_uv;
 
 // DEBUG
-vec4 debugPointsColor() {
+vec3 debugPointsColor() {
     vec3   energy = vec3(0.0);
 
     for (int i = 0; i < MAX_POINTS; ++i) {
@@ -62,7 +62,7 @@ void main() {
     // // Red gradient from left to right, green from top to bottom
     // gl_FragColor = vec4(v_uv.x, v_uv.y, 0.0, 1.0);
 
-    float   brightness = vec3(float(iterations()) / float(MAX_ITER));
+    vec3   brightness = vec3(float(iterations()) / float(MAX_ITER));
 
     // DEBUG
     brightness += debugPointsColor();
