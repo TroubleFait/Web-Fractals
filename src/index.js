@@ -1,6 +1,6 @@
 import { initWebGL } from "./utils/webGL.js";
 import { setupControls } from "./utils/controls.js";
-import { cAdd, cSub, cScalMul } from "complex.js";
+import { cAdd, cSub, cScalMul } from "./utils/complex.js";
 
 main();
 
