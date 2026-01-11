@@ -71,6 +71,11 @@ async function main() {
   }
 
   draw();
+
+  setInterval(() => {
+    currentView.scale *= 1.1;
+    draw();
+  }, 1000);
 }
 
 function getViewport(bounds, canvas) {
