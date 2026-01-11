@@ -24,34 +24,33 @@ async function main() {
     pointer.startView = structuredClone(currentView);
   };
   const onPan = (pointer) => {
-    /**
-     * 
-     */
+    const pxPanDist = {
+      x: pointer.current.x - pointer.start.x,
+      y: pointer.current.y - pointer.start.y,
+    };
+    const cPanDist = pxToComplex(pxPanDist);
+
+    currentView.center = cAdd(panStartView.center, cPanDist);
   };
   const onZoom = (focus, delta) => {
-    /**
-     * Change the currentView's center and scale such that focus stays in-place.
-     *
-     * CF0 = [center0, focus], CF1 = [center1, focus], s0 = old scale, s1 = new scale
-     * CF1 / s1 = CF0 / s0
-     * center1 =?
-     * CF1 = s1 * CF0 / s0
-     * (center1 - focus) = (center0 - focus) * s1 / s0
-     * center1 = focus + (center0 - focus) * s1 / s0
-     */
+    const oldScale = currentView.scale,
+      newScale = currentView.scale / Math.pow(1.01, delta);
 
-    const oldScale = currentView.scale;
-    currentView.scale /= Math.pow(1.01, delta);
+    currentView.scale = newScale;
 
-    const distToCenter = cSub(currentView.center, focus);
-    currentView.center = cAdd(
-      focus,
-      cScalMul(distToCenter, currentView.scale / oldScale)
-    );
+    const complexFocus = pxToComplex(focus, canvas, currentView),
+      distToCenter = cSub(currentView.center, complexFocus),
+      newDistToCenter = cScalMul(distToCenter, newScale / oldScale);
+
+    currentView.center = cAdd(complexFocus, newDistToCenter);
   };
-  const onPanZoom = (pointers) => {};
+  const onPanZoom = (pointers) => {
+    /**
+     * Cannot panZoom yet
+     */
+  };
 
-  setupControls(canvas, onPan, onZoom, onPanZoom);
+  setupControls(canvas, onPointDown, onPan, onZoom, onPanZoom);
 
   const uCenterLoc = gl.getUniformLocation(program, "u_center");
   const uScaleLoc = gl.getUniformLocation(program, "u_scale");
@@ -94,13 +93,17 @@ function getViewport(bounds, canvas) {
   return { center, scale, aspect };
 }
 
-function pxToComplex({x, y}, canvas, view) {
-  canvasCenter = {
-    x: canvas.width / 2,
-    y: canvas.height / 2,
+function pxToComplex({ x, y }, canvas, view) {
+  const distToCanvasCenter = {
+    x: canvas.width / 2 - x,
+    y: canvas.height / 2 - y,
   };
-  return cScalMul({
-    re: canvasCenter.x,
-    im: canvasCenter.y / view.aspect,
-  }, view.scale);
+
+  return cScalMul(
+    {
+      re: distToCanvasCenter.x,
+      im: distToCanvasCenter.y / view.aspect,
+    },
+    view.scale
+  );
 }
