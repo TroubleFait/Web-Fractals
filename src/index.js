@@ -159,6 +159,23 @@ function pxToComplex({ x, y }, canvas, view) {
     y: canvas.height / 2 - y,
   };
 
+  console.log("distToCanvasCenter", distToCanvasCenter);
+  console.log("view", view);
+  console.log("before scaling", {
+    re: distToCanvasCenter.x,
+    im: distToCanvasCenter.y / view.aspect,
+  });
+  console.log(
+    "return ",
+    cScalMul(
+      {
+        re: distToCanvasCenter.x,
+        im: distToCanvasCenter.y / view.aspect,
+      },
+      view.scale
+    )
+  );
+
   return cScalMul(
     {
       re: distToCanvasCenter.x,
