@@ -23,7 +23,6 @@ vec4 debugPointsColor() {
 
         float   d = distance(v_c, u_debugPoints[i]);
         float   influence = smoothstep(0.0, u_debugPointSize, u_debugPointSize - d);
-        // float   influence = smoothstep(0.0, u_debugPointSize, d);
 
         energy += influence * u_debugColors[i];
         mask = max(mask, influence);

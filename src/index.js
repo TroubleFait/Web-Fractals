@@ -64,20 +64,30 @@ async function main() {
   const uDebugCount = gl.getUniformLocation(program, "u_debugCount");
   const uDebugPointSize = gl.getUniformLocation(program, "u_debugPointSize");
 
-  // const debugPoints = [
-  //   [0.0, 0.0],
-  //   [-0.5, -0.5],
-  //   [0.5, -0.5],
-  //   [-0.5, 0.5],
-  //   [0.5, 0.5],
-  // ];
   const debugPoints = [
-    [-0.5, 0.0],
-    [-2.0, -1.2],
-    [1.0, -1.2],
-    [-2.0, 1.2],
-    [1.0, 1.2],
+    [0.0, 0.0],
+    [-0.5, -0.5],
+    [0.5, -0.5],
+    [-0.5, 0.5],
+    [0.5, 0.5],
   ];
+  debugPoints.forEach((point) => {
+    complexPoint = pxToComplex(
+      { x: point[0], y: point[1] },
+      canvas,
+      currentView
+    );
+    point[0] = complexPoint.re;
+    point[1] = complexPoint.im;
+  });
+  console.log("complex debug points:", debugPoints);
+  // const debugPoints = [
+  //   [-0.5, 0.0],
+  //   [-2.0, -1.2],
+  //   [1.0, -1.2],
+  //   [-2.0, 1.2],
+  //   [1.0, 1.2],
+  // ];
   const debugColors = [
     [0.0, 0.0, 1.0],
     [0.0, 1.0, 0.0],
