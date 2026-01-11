@@ -21,7 +21,7 @@ vec4 debugPointsColor() {
     for (int i = 0; i < MAX_POINTS; ++i) {
         if (!(i < u_debugCount)) break;
 
-        float   d = distance(v_c, u_debugPoints[i]);
+        float   d = distance(v_c, u_debugPoints[i]) * u_scale;
         float   influence = smoothstep(0.0, u_debugPointSize, u_debugPointSize - d);
 
         energy += influence * u_debugColors[i];
