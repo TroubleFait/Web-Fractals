@@ -10,6 +10,7 @@ uniform vec2    u_debugPoints[MAX_POINTS];
 uniform vec3    u_debugColors[MAX_POINTS];
 uniform int     u_debugCount;
 uniform float   u_debugPointSize;
+uniform float   u_scale;
 
 // varying vec2    v_uv;
 
