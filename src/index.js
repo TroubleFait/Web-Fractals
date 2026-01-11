@@ -24,7 +24,7 @@ async function main() {
     panStartView = structuredClone(currentView);
 
     // DEBUG
-    cCoordinates = pxToComplex(pointer.start);
+    cCoordinates = pxToComplex(pointer.start, canvas, currentView);
     debugPoints[PointTypes.POINTER_1][0] = cCoordinates.re;
     debugPoints[PointTypes.POINTER_1][1] = cCoordinates.im;
     draw();
