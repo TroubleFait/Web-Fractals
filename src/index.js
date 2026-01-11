@@ -163,24 +163,24 @@ function getViewport(bounds, canvas) {
 }
 
 function pxToComplex({ x, y }, canvas, view) {
-  const pxDistToCanvasCenter = {
-    x: canvas.width / 2 - x,
-    y: canvas.height / 2 - y,
+  const pxDistCanvasCenterToPoint = {
+    x: x - canvas.width / 2,
+    y: y - canvas.height / 2,
   };
 
   console.log("point", { x, y });
-  console.log("distToCanvasCenter", pxDistToCanvasCenter);
+  console.log("pxDistCanvasCenterToPoint", pxDistCanvasCenterToPoint);
   console.log("view", view);
   console.log("before scaling", {
-    re: pxDistToCanvasCenter.x,
-    im: pxDistToCanvasCenter.y / view.aspect,
+    re: pxDistCanvasCenterToPoint.x,
+    im: pxDistCanvasCenterToPoint.y / view.aspect,
   });
   console.log(
     "return ",
     cScalMul(
       {
-        re: pxDistToCanvasCenter.x,
-        im: pxDistToCanvasCenter.y / view.aspect,
+        re: pxDistCanvasCenterToPoint.x,
+        im: pxDistCanvasCenterToPoint.y / view.aspect,
       },
       view.scale / canvas.width
     )
@@ -188,8 +188,8 @@ function pxToComplex({ x, y }, canvas, view) {
 
   return cScalMul(
     {
-      re: pxDistToCanvasCenter.x,
-      im: pxDistToCanvasCenter.y / view.aspect,
+      re: pxDistCanvasCenterToPoint.x,
+      im: pxDistCanvasCenterToPoint.y / view.aspect,
     },
     view.scale / canvas.width
   );
