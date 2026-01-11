@@ -72,7 +72,7 @@ async function main() {
     [0.5, 0.5],
   ];
   debugPoints.forEach((point) => {
-    complexPoint = pxToComplex(
+    const complexPoint = pxToComplex(
       { x: point[0], y: point[1] },
       canvas,
       currentView
