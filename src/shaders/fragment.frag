@@ -1,7 +1,7 @@
 // fragment shader
 precision highp float;
 varying vec2    v_c; // the actual complex coordinate
-const int       MAX_ITER = 100;
+const int       MAX_ITER = 1000;
 
 // DEBUG
 const int       MAX_POINTS = 10;
