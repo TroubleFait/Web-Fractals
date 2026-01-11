@@ -73,8 +73,16 @@ async function main() {
 
   draw();
 
+  // setInterval(() => {
+  //   currentView.scale *= 1.1;
+  //   draw();
+  // }, 1000);
+
   setInterval(() => {
-    currentView.scale *= 1.1;
+    currentView.center = cAdd(currentView.center, {
+      re: -0.1,
+      im: 0.2,
+    });
     draw();
   }, 1000);
 }
