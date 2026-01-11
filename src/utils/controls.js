@@ -1,4 +1,4 @@
-export function setupControls(canvas, onPan, onZoom, onPanZoom) {
+export function setupControls(canvas, onPointDown, onPan, onZoom, onPanZoom) {
   let pointers = new Map();
 
   function getPointerCoordinates(e) {
@@ -14,6 +14,7 @@ export function setupControls(canvas, onPan, onZoom, onPanZoom) {
     canvas.setPointerCapture(e.pointerId);
     const coordinates = getPointerCoordinates(e);
     pointers.set(e.pointerId, { start: coordinates, current: coordinates });
+    onPointDown(pointers.get(e.pointerId));
   });
 
   canvas.addEventListener("pointerup", (e) => {

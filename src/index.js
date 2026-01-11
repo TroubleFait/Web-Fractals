@@ -20,11 +20,12 @@ async function main() {
   const currentView = getViewport(initialBounds, canvas);
 
   let panStartView = null;
+  const onPointDown = (pointer) => {
+    pointer.startView = structuredClone(currentView);
+  };
   const onPan = (pointer) => {
     /**
-     * Must register the panStartView at the start of the movement
-     * so that it can always refer to it as currentView changes
-     * tricky, might need to do it at pointerdown and pointerup
+     * 
      */
   };
   const onZoom = (focus, delta) => {
@@ -91,4 +92,15 @@ function getViewport(bounds, canvas) {
   const aspect = canvasAspect;
 
   return { center, scale, aspect };
+}
+
+function pxToComplex({x, y}, canvas, view) {
+  canvasCenter = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+  };
+  return cScalMul({
+    re: canvasCenter.x,
+    im: canvasCenter.y / view.aspect,
+  }, view.scale);
 }
