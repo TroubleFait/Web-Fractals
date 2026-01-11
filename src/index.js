@@ -40,7 +40,7 @@ async function main() {
      */
 
     const oldScale = currentView.scale;
-    currentView /= Math.pow(1.01, delta);
+    currentView.scale /= Math.pow(1.01, delta);
 
     const distToCenter = cSub(currentView.center, focus);
     currentView.center = cAdd(
