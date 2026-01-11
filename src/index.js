@@ -80,6 +80,15 @@ async function main() {
     point[0] = complexPoint.re;
     point[1] = complexPoint.im;
   });
+  // {
+  //   const complexPoint = pxToComplex(
+  //     { x: debugPoints[0][0], y: debugPoints[0][1] },
+  //     canvas,
+  //     currentView
+  //   );
+  //   point[0] = complexPoint.re;
+  //   point[1] = complexPoint.im;
+  // }
   console.log("complex debug points:", debugPoints);
   // const debugPoints = [
   //   [-0.5, 0.0],
@@ -159,6 +168,7 @@ function pxToComplex({ x, y }, canvas, view) {
     y: canvas.height / 2 - y,
   };
 
+  console.log("point", { x, y });
   console.log("distToCanvasCenter", distToCanvasCenter);
   console.log("view", view);
   console.log("before scaling", {
@@ -172,15 +182,15 @@ function pxToComplex({ x, y }, canvas, view) {
         re: distToCanvasCenter.x,
         im: distToCanvasCenter.y / view.aspect,
       },
-      view.scale
+      view.scale / canvas.width
     )
   );
 
-  return cScalDiv(
+  return cScalMul(
     {
       re: distToCanvasCenter.x,
       im: distToCanvasCenter.y / view.aspect,
     },
-    view.scale
+    view.scale / canvas.width
   );
 }
