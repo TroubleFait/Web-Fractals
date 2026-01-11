@@ -28,7 +28,7 @@ async function main() {
       x: pointer.current.x - pointer.start.x,
       y: pointer.current.y - pointer.start.y,
     };
-    const cPanDist = pxToComplex(pxPanDist);
+    const cPanDist = pxToComplex(pxPanDist, canvas, currentView);
 
     currentView.center = cAdd(panStartView.center, cPanDist);
   };
