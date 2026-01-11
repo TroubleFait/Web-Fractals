@@ -52,8 +52,8 @@ async function main() {
     debugPoints[PointTypes.WHEEL][0] = complexFocus.re;
     debugPoints[PointTypes.WHEEL][1] = complexFocus.im;
     const onTimeout = () => {
-      debugPoints[PointTypes.WHEEL][0] = inf;
-      debugPoints[PointTypes.WHEEL][1] = inf;
+      debugPoints[PointTypes.WHEEL][0] = Infinity;
+      debugPoints[PointTypes.WHEEL][1] = Infinity;
     };
     debugPointTimeout = setTimeout(onTimeout, 50);
 
@@ -91,11 +91,11 @@ async function main() {
     [canvas.width, canvas.height],
     [0, 0],
     [canvas.width, 0],
-    [inf, inf], // wheel
-    [inf, inf], // pointer1
-    [inf, inf], // pointer2
-    [inf, inf], // bonus1
-    [inf, inf], // bonus2
+    [Infinity, Infinity], // wheel
+    [Infinity, Infinity], // pointer1
+    [Infinity, Infinity], // pointer2
+    [Infinity, Infinity], // bonus1
+    [Infinity, Infinity], // bonus2
   ];
   convertDebugPoint = (point) => {
     const complexPoint = pxToComplex(
