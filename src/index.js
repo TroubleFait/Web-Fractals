@@ -89,7 +89,7 @@ async function main() {
     gl.uniform2fv(uDebugPoints, new Float32Array(debugPoints.flat()));
     gl.uniform3fv(uDebugColors, new Float32Array(debugColors.flat()));
     gl.uniform1i(uDebugCount, debugPoints.length);
-    gl.uniform1f(uDebugPointSize, 30.0);
+    gl.uniform1f(uDebugPointSize, 0.0);
 
     gl.uniform2f(uCenterLoc, currentView.center.re, currentView.center.im);
     gl.uniform1f(uScaleLoc, currentView.scale);
