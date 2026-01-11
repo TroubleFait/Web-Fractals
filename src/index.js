@@ -173,14 +173,16 @@ function pxToComplex({ x, y }, canvas, view) {
   console.log("view", view);
   console.log("before scaling", {
     re: pxDistCanvasCenterToPoint.x,
-    im: pxDistCanvasCenterToPoint.y / view.aspect,
+    // im: pxDistCanvasCenterToPoint.y / view.aspect,
+    im: pxDistCanvasCenterToPoint.y,
   });
   console.log(
     "return ",
     cScalMul(
       {
         re: pxDistCanvasCenterToPoint.x,
-        im: pxDistCanvasCenterToPoint.y / view.aspect,
+        // im: pxDistCanvasCenterToPoint.y / view.aspect,
+        im: pxDistCanvasCenterToPoint.y,
       },
       view.scale / canvas.width
     )
@@ -189,7 +191,8 @@ function pxToComplex({ x, y }, canvas, view) {
   return cScalMul(
     {
       re: pxDistCanvasCenterToPoint.x,
-      im: pxDistCanvasCenterToPoint.y / view.aspect,
+      // im: pxDistCanvasCenterToPoint.y / view.aspect,
+      im: pxDistCanvasCenterToPoint.y,
     },
     view.scale / canvas.width
   );
