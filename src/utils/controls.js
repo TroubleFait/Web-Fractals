@@ -1,4 +1,11 @@
-export function setupControls(canvas, onPointDown, onPan, onZoom, onPanZoom) {
+export function setupControls(
+  canvas,
+  onPointDown,
+  onPointUp,
+  onPan,
+  onZoom,
+  onPanZoom
+) {
   let pointers = new Map();
 
   function getPointerCoordinates(e) {
@@ -19,6 +26,7 @@ export function setupControls(canvas, onPointDown, onPan, onZoom, onPanZoom) {
 
   canvas.addEventListener("pointerup", (e) => {
     pointers.delete(e.pointerId);
+    onPointUp();
   });
 
   canvas.addEventListener("pointermove", (e) => {

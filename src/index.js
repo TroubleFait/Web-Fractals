@@ -22,7 +22,21 @@ async function main() {
   let panStartView = null;
   const onPointDown = (pointer) => {
     panStartView = structuredClone(currentView);
+
+    // DEBUG
+    cCoordinates = pxToComplex(pointer.start);
+    debugPoints[PointTypes.POINTER_1][0] = cCoordinates.re;
+    debugPoints[PointTypes.POINTER_1][1] = cCoordinates.im;
+    draw();
   };
+
+  // DEBUG
+  const onPointUp = () => {
+    debugPoints[PointTypes.POINTER_1][0] = Infinity;
+    debugPoints[PointTypes.POINTER_1][1] = Infinity;
+    draw();
+  };
+
   const onPan = (pointer) => {
     const pxPanDist = {
       x: pointer.current.x - pointer.start.x,
@@ -67,7 +81,7 @@ async function main() {
      */
   };
 
-  setupControls(canvas, onPointDown, onPan, onZoom, onPanZoom);
+  setupControls(canvas, onPointDown, onPointUp, onPan, onZoom, onPanZoom);
 
   const uCenterLoc = gl.getUniformLocation(program, "u_center");
   const uScaleLoc = gl.getUniformLocation(program, "u_scale");
@@ -131,7 +145,7 @@ async function main() {
     gl.uniform2fv(uDebugPoints, new Float32Array(debugPoints.flat()));
     gl.uniform3fv(uDebugColors, new Float32Array(debugColors.flat()));
     gl.uniform1i(uDebugCount, debugPoints.length);
-    gl.uniform1f(uDebugPointSize, 0.1);
+    gl.uniform1f(uDebugPointSize, 0.01);
 
     gl.uniform2f(uCenterLoc, currentView.center.re, currentView.center.im);
     gl.uniform1f(uScaleLoc, currentView.scale);
