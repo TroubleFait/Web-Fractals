@@ -38,6 +38,7 @@ async function main() {
   };
 
   const onPan = (pointer) => {
+    if (pointer.current === undefined) return;
     const pxPanDist = {
       x: pointer.current.x - pointer.start.x,
       y: pointer.current.y - pointer.start.y,
