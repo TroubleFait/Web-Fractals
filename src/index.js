@@ -31,6 +31,7 @@ async function main() {
     const cPanDist = pxToComplex(pxPanDist, canvas, currentView);
 
     currentView.center = cAdd(panStartView.center, cPanDist);
+    draw();
   };
   const onZoom = (focus, delta) => {
     const oldScale = currentView.scale,
@@ -43,6 +44,7 @@ async function main() {
       newDistToCenter = cScalMul(distToCenter, newScale / oldScale);
 
     currentView.center = cAdd(complexFocus, newDistToCenter);
+    draw();
   };
   const onPanZoom = (pointers) => {
     /**
@@ -56,16 +58,15 @@ async function main() {
   const uScaleLoc = gl.getUniformLocation(program, "u_scale");
   const uAspect = gl.getUniformLocation(program, "u_aspect");
 
-  gl.uniform2f(uCenterLoc, currentView.center.re, currentView.center.im);
-  gl.uniform1f(uScaleLoc, currentView.scale);
-  gl.uniform1f(uAspect, currentView.aspect);
-
   const aPosition = gl.getAttribLocation(program, "a_position");
   gl.enableVertexAttribArray(aPosition);
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
 
   function draw() {
+    gl.uniform2f(uCenterLoc, currentView.center.re, currentView.center.im);
+    gl.uniform1f(uScaleLoc, currentView.scale);
+    gl.uniform1f(uAspect, currentView.aspect);
     gl.drawArrays(gl.TRIANGLES, 0, 6); // 6 vertices for 2 triangles (full-screen quad)
   }
 
