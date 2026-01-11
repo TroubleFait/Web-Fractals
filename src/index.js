@@ -64,12 +64,19 @@ async function main() {
   const uDebugCount = gl.getUniformLocation(program, "u_debugCount");
   const uDebugPointSize = gl.getUniformLocation(program, "u_debugPointSize");
 
+  // const debugPoints = [
+  //   [0.0, 0.0],
+  //   [-0.5, -0.5],
+  //   [0.5, -0.5],
+  //   [-0.5, 0.5],
+  //   [0.5, 0.5],
+  // ];
   const debugPoints = [
-    [0.0, 0.0],
-    [-0.5, -0.5],
-    [0.5, -0.5],
-    [-0.5, 0.5],
-    [0.5, 0.5],
+    [-0.5, 0.0],
+    [-2.0, -1.2],
+    [1.0, -1.2],
+    [-2.0, 1.2],
+    [1.0, 1.2],
   ];
   const debugColors = [
     [0.0, 0.0, 1.0],
