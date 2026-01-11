@@ -34,6 +34,11 @@ async function main() {
     draw();
   };
   const onZoom = (focus, delta) => {
+    /**
+     * vCenter: the complex coordinates of the center of the screen
+     *
+     *
+     */
     const oldScale = currentView.scale,
       newScale = currentView.scale / Math.pow(1.01, delta);
 
@@ -189,7 +194,10 @@ function pxToComplex({ x, y }, canvas, view) {
    * x in px
    * X is such that X(-0.5) = x(0 px) and X(0.5) = x(canvasWidth px)
    * X = x / canvasWidth - 0.5
-   * Y = y / canvasHeight - 0.5
+   *
+   * y in px
+   * Y is such that Y(-0.5) = y(canvasHeight px) and Y(0.5) = y(0 px)
+   * Y = 0.5 - y / canvasHeight
    *
    * -0.5 * scale = reMin, 0.5 * scale = reMax
    * re = X * scale
@@ -222,7 +230,7 @@ function pxToComplex({ x, y }, canvas, view) {
   // );
   const canvasPoint = {
     x: x / canvas.width - 0.5,
-    y: y / canvas.height - 0.5,
+    y: 0.5 - y / canvas.height,
   };
 
   return cAdd(view.center, {
