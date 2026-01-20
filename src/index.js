@@ -30,22 +30,26 @@ async function main() {
     draw();
   };
 
-  // DEBUG
   const onPointUp = () => {
+    // DEBUG
     debugPoints[PointTypes.POINTER_1][0] = Infinity;
     debugPoints[PointTypes.POINTER_1][1] = Infinity;
+    debugPoints[PointTypes.POINTER_2][0] = Infinity;
+    debugPoints[PointTypes.POINTER_2][1] = Infinity;
+
     draw();
   };
 
   const onPan = (pointer) => {
     if (pointer.current === undefined) return;
-    const pxPanDist = {
-      x: pointer.current.x - pointer.start.x,
-      y: pointer.current.y - pointer.start.y,
-    };
-    const cPanDist = pxToComplex(pxPanDist, canvas, currentView);
 
-    currentView.center = cAdd(panStartView.center, cPanDist);
+    const pxPanDist = {
+      x: pointer.current.x - pointer.start.x + canvas.width / 2,
+      y: pointer.current.y - pointer.start.y + canvas.height / 2,
+    };
+    const cPanDist = VectorPxToComplex(pxPanDist, canvas, currentView);
+
+    currentView.center = cSub(panStartView.center, cPanDist);
     draw();
   };
 
@@ -56,11 +60,11 @@ async function main() {
     const oldScale = currentView.scale,
       newScale = currentView.scale / Math.pow(1.01, delta);
 
-    currentView.scale = newScale;
-
     const complexFocus = pxToComplex(focus, canvas, currentView),
       distToCenter = cSub(currentView.center, complexFocus),
       newDistToCenter = cScalMul(distToCenter, newScale / oldScale);
+
+    currentView.scale = newScale;
 
     // DEBUG
     clearTimeout(debugPointTimeout);
@@ -71,7 +75,7 @@ async function main() {
       debugPoints[PointTypes.WHEEL][1] = Infinity;
       draw();
     };
-    debugPointTimeout = setTimeout(onTimeout, 50);
+    debugPointTimeout = setTimeout(onTimeout, 500);
 
     currentView.center = cAdd(complexFocus, newDistToCenter);
     draw();
@@ -131,9 +135,9 @@ async function main() {
     [1.0, 0.0, 1.0],
     [1.0, 1.0, 0.0],
     [1.0, 1.0, 1.0],
-    [0.5, 0.5, 0.0],
-    [0.5, 0.0, 0.5],
-    [0.0, 0.5, 0.5],
+    [0.5, 0.5, 1.0],
+    [0.5, 1.0, 0.5],
+    [1.0, 0.5, 0.5],
   ];
 
   const aPosition = gl.getAttribLocation(program, "a_position");
@@ -210,6 +214,18 @@ function getViewport(initialBounds, canvas) {
   const aspect = canvasAspect;
 
   return { center, scale, aspect };
+}
+
+function VectorPxToComplex({ x, y }, canvas, view) {
+  const canvasPoint = {
+    x: x / canvas.width - 0.5,
+    y: 0.5 - y / canvas.height,
+  };
+
+  return {
+    re: canvasPoint.x * view.scale,
+    im: (canvasPoint.y * view.scale) / view.aspect,
+  };
 }
 
 function pxToComplex({ x, y }, canvas, view) {

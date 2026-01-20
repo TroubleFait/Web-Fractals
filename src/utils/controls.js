@@ -35,11 +35,14 @@ export function setupControls(
     const movingPointer = pointers.get(e.pointerId);
     movingPointer.current = getPointerCoordinates(e);
 
-    if (pointers.size === 1) {
-      onPan(movingPointer);
-    } else if (pointers.size === 2) {
-      onPanZoom(pointers);
-    }
+    // if (pointers.size === 1) {
+    //   onPan(movingPointer);
+    // } else if (pointers.size === 2) {
+    //   onPanZoom(pointers);
+    // }
+
+    // TEST
+    onPan(movingPointer);
   });
 
   canvas.addEventListener(
