@@ -12,6 +12,8 @@ const initialBounds = {
 };
 
 async function main() {
+  console.log("dpr:", window.devicePixelRatio);
+
   const { gl, canvas, program, positionBuffer } = await initWebGL(
     "./shaders/vertex.vert",
     "./shaders/fragment.frag"
